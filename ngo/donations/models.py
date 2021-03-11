@@ -7,6 +7,7 @@ from django.db import models
 class DonationType(models.Model):
     '''Donation types models.'''
     name = models.CharField(max_length=50)
+
     class Meta:
         ordering = ['name']
 
@@ -17,7 +18,6 @@ class Donation(models.Model):
     date = models.DateField(auto_created=True, auto_now=True)
     amount = models.IntegerField()
     _type = models.ForeignKey(DonationType, on_delete=models.CASCADE)
-    
-    class Meta:
-        ordering = ['date']
 
+    class Meta:
+        ordering = ['-date']
