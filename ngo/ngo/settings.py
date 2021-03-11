@@ -38,6 +38,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# LOGIN_REDIRECT_URL = '/products'
+LOGIN_URL = '/admin'
 
 # Application definition
 
