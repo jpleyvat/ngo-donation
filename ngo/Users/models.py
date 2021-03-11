@@ -1,5 +1,5 @@
 from django.db import models
-import UUID
+import uuid
 
 # Create your models here.
 class User(models.Model):
@@ -20,10 +20,13 @@ class User(models.Model):
 
       CMA_Num = models.IntegerField(max_length = 80, blank = True, null = True,  default = '')
       Phone = models.CharField(max_length = 12, blank = True, default = '')
-      AddressLineOne = models.CharField(max_length = 60, Blank = True, null = True, default = '')
-      AddressLineTwo = models.CharField(max_length = 60, Blank = True, null = True, Default = '')
-      City = models.CharField(max_length = 60, Blank = True, null = True, Default = '')
-      State = models.CharField(max_length = 60, Blank = True, null = True, Default = '')
-      Zip = models.CharField(max_length = 60, blank = True, null = True, Default = '')
-      Country = models.CharField(max_length = 60, blank = True,  null = True, Default = '')
-      Urbanization = models.CharField(max_length = 60, blank = True, null = True, Default = '')
+      AddressLineOne = models.CharField(max_length = 60, blank = True, null = True, default = '')
+      AddressLineTwo = models.CharField(max_length = 60, blank = True, null = True, default = '')
+      City = models.CharField(max_length = 60, blank = True, null = True, default = '')
+      State = models.CharField(max_length = 60, blank = True, null = True, default = '')
+      Zip = models.CharField(max_length = 60, blank = True, null = True, default = '')
+      Country = models.CharField(max_length = 60, blank = True,  null = True, default = '')
+      Urbanization = models.CharField(max_length = 60, blank = True, null = True, default = '')
+
+      class Meta:
+            ordering = ['-Last_Name']
