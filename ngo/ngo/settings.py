@@ -70,7 +70,7 @@ ROOT_URLCONF = 'ngo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],   #add this to include the template folder from the project
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
