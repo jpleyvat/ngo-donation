@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'payment',
     'Users',
 ]
-
+AUTH_USER_MODEL = 'Users.User'
 
 
 MIDDLEWARE = [
@@ -142,4 +142,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-AUTH_USER_MODEL = 'Users.User'
+

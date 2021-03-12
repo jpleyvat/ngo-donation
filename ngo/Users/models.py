@@ -13,32 +13,42 @@ class UserManager(BaseUserManager):
             raise ValueError("Users must have an email address")
 
         user = self.model(
-            UserID = UserID,
-            email = self.normalize_email(email),
+            email = self.normalize_email(email)
         )
+        user.UserID = UserID
         user.set_password(password)
         user.save(using=self.db)
         return user
 
+    def create_staffuser(self,UserID,email,password):
+        user = self.create_user(UserID,email,password=password)
+        user.staff = True
+        user.save(using=self._db)
+        return user
+
     def create_superuser(self,UserID,email,password):
         user = self.create_user(
-            UserID=UserID,
-            email=email,
-            password=password,
-            is_admin=True
+            UserID,email,password=password 
         )
+        user.staff = True
         user.admin = True
         user.save(using=self._db)
         return user
 
 class User(AbstractBaseUser):
-    UserID = models.CharField(max_length = 255,unique = True,)
+    UserID = models.CharField(max_length = 255,unique = True)
+    staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False) # a superuser
     email = models.EmailField(max_length=255,unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD = 'UserID'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']
 
+    def has_perm(self,perm,obj=None):
+        return True
+
+    def has_module_perms(self,app_label):
+        return True
 
     
 
@@ -51,6 +61,11 @@ class User(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
+    @property
+    def is_staff(self):
+        return self.staff
+    
+    
     objects = UserManager()
 
 
