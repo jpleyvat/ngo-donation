@@ -4,12 +4,12 @@
 from django.urls import path
 
 # Views
-from .views import (DonationManagement, 
-                    MakeDonation)
+from . import views
 
 app_name = 'donations'
 
 urlpatterns = [
-    path('management/', DonationManagement.as_view()),
-    path('new/', MakeDonation.as_view())
+    path('', views.ListDonations.as_view(), name='list'),
+    path('donate/', views.CreateDonation.as_view(), name='create'),
+    path('<int:pk>/mock/', views.MockPayment.as_view(), name='mock'),
 ]

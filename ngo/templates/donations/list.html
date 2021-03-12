@@ -5,7 +5,7 @@
 <div>
     <ul>
         {% for donation in donations%}
-            <li>{{ donation.amount }}</li>
+        <li>{{ donation.amount }} {{ donation.completed }}</li>
         {% endfor %}
     </ul>
 </div>
