@@ -1,11 +1,31 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>NGO Donations</title>
+    <link rel="stylesheet" href="{% static 'Nav.css' %}" type="text/css">
 </head>
 <body>
     {% block content %}
-    {% endblock content %}
+    <!--- define a base view that will be inherited by other views -->
+    <!--    define the homepage content  (navigation menu)-->
+    <div class="top_nav">
+        <!-- This is the homepage link Specifically designed for admin users or can be the logo (remove link) (might change) -->
+        <a class = "" href = " ">NGO</a>
+
+
+
+        <!-- Right-aligned links-->
+        <!-- Todo: create UserTemps Profile and link it to this  -->
+        <div class = "top_nav_right">
+            <a href="#Login"> Sign In</a>
+
+        </div>
+    </div>
+    {% endblock %}
+
+    <h1>This is NGO's homepage</h1>
+
 </body>
 </html>
