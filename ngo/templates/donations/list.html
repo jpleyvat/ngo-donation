@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}Donations Management{% endblock title %}
 {% block content %}
-<h1>Management</h1>
-<div>
-    <ul>
-        {% for donation in donations%}
-        <li>{{ donation.amount }} {{ donation.completed }}</li>
-        {% endfor %}
-    </ul>
+<div class="donations">
+    {% for donation in donations%}
+    <span>
+        <ul>
+            <li>{{ donation.user }}</li>
+            <li>{{ donation.date }}</li>
+            <li>{{ donation.amount }}</li>
+            <li>{{ donation.completed }}</li>
+        </ul>
+    </span>
+    {% endfor %}
 </div>
 
 {% endblock content %}
