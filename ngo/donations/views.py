@@ -30,4 +30,4 @@ class DonationManagement(LoginRequiredMixin, ListView):
 
 class MakeDonation(LoginRequiredMixin, CreateView):
     model = Donation
-    fields = ['ammount']
+    fields = ['amount']
