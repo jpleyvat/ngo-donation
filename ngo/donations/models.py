@@ -2,7 +2,10 @@
 
 # Django
 from django.db import models
-from django.contrib.auth.models import User
+import ngo 
+#User = ngo.settings.AUTH_USER_MODEL
+
+#from django.contrib.auth.models import User
 
 # Create your models here.
 class DonationType(models.Model):
@@ -22,7 +25,8 @@ class Donation(models.Model):
     date = models.DateField(auto_created=True, auto_now=True)
     amount = models.IntegerField(blank=False, null=False)
     _type = models.ForeignKey(DonationType, on_delete=models.CASCADE, blank=False, null=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #current_user = User  
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     # profile = models.ForeignKey()
     # gifts = models.ForeignKey()
 
