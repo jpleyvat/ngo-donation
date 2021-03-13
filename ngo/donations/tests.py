@@ -11,10 +11,10 @@ from .models import (Charity,
 class CharityTest(TestCase):
     '''Donation type test.'''
     def setUp(self):
-        DonationType.objects.create('Dogs')
+        Charity.objects.create('Dogs')
 
 class DonationTest(TestCase):
     '''Donation test.'''
     def setUp(self):
         Donation.objects.create(ammount=1000, 
-                                _type=DonationType.objects.get(name='dogs'))
+                                _type=Charity.objects.get(name='dogs'))
