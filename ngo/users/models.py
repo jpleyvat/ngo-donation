@@ -1,6 +1,7 @@
-import uuid
+from time import time
 
 # Django
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -11,8 +12,13 @@ from django.dispatch import receiver
 from .managers import UserManager
 
 # Create your models here.
+def get_id():
+    return int(time())
+
 class Profile(models.Model):
     _id = models.IntegerField(primary_key=True, editable=False, default=0)
+    first_name = models.CharField(max_length = 66, default = '', blank= True)
+    last_name = models.CharField(max_length = 66, default = '', blank= True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -32,14 +38,12 @@ class Profile(models.Model):
         super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.user
+        return ' '.join((self.first_name, self.last_name))
 
 class CustomUser(AbstractUser):
     _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable = False)
     username = models.CharField(max_length=40, unique=False, default='')    #removing this raises an error when creating a user. This is a required field.
 
-    first_name = models.CharField(_('first name '),max_length = 66, default = '')
-    last_name = models.CharField(_('last name'),max_length = 66, default = '')
     email = models.EmailField(_('email address'), unique = True)
 
     #Change role to boolean is_staff so validations can be made easier
@@ -54,7 +58,7 @@ class CustomUser(AbstractUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'password', 'is_staff']
+    REQUIRED_FIELDS = ['password', 'is_staff']
 
     def __str__(self):
         return self.email
