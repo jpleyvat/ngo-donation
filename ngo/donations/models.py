@@ -1,11 +1,12 @@
 '''Donations models.'''
 from time import time
 
-# Django
+# Django.
 from django.db import models
-# from django.contrib.auth.models import User
-from Users.models import CustomUser
+from django.utils.translation import ugettext_lazy as _
 
+# Models.
+from users.models import CustomUser
 # Create your models here.
 def get_id():
     return int(time())
@@ -19,6 +20,9 @@ class Charity(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = _('charity')
+        verbose_name_plural = _('charities')
+
 
 class Donation(models.Model):
     '''Donations models.'''

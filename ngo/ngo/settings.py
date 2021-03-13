@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'donations',
-    'Users',
+    'users',
 ]
 
 
@@ -141,4 +141,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-AUTH_USER_MODEL = 'Users.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
