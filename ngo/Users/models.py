@@ -16,6 +16,7 @@ class CustomUser(AbstractUser):
       )
 
       UserID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable = False)
+      username = models.CharField(max_length=40, unique=False, default='')    #removing this raises an error when creating a user. This is a required field.
       first_name = models.CharField(_('first name '),max_length = 66, default = '')
       last_name = models.CharField(_('last name'),max_length = 66, default = '')
       email = models.EmailField(_('email address'), unique = True)
