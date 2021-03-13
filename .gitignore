@@ -7,7 +7,9 @@ migrations/
 # C extensions
 *.so
 
+
 # Distribution / packaging
+migrations/
 .Python
 build/
 develop-eggs/
