@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.top_nav{
+    display: flex;
+    justify-content: flex-end;
+}
+.top_nav > * {
+    margin: 1rem;
+}
+
+.dashboard{
+    display: flex;
+    width: 100vw;
+}
+
+.dashboard .left_nav{
+    width: 10rem;
+}
+.dashboard .left_nav ul li{
+    margin: 1rem;
+}
+
+.dashboard .block{
+    width: 100%;
+}
+
+/* .dashboard .donations{ */
+/*     width: 100%; */
+/* } */
+.dashboard .donations ul{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    margin: 1rem;
+}
+
+.dashboard .donations ul li{
+}

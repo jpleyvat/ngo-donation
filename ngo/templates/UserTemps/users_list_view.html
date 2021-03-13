@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+<!-- Todo: Make this prettier. update user_table to match homepage -->
+{% block content %}
+   <head>
+       <link rel="stylesheet" href="{% static 'user_table.css' %}" type="text/css">
+   </head>
+   <section>
+    <h1 style="text-align: center "> User Management </h1>
+
+        <table class="user_table" width="100%">
+        <thead><a href = "{% url 'Users:Create_User'%}">Add User </a></thead>
+        <tr>
+            <th> First Name </th>
+            <th> Last Name </th>
+            <th> Email </th>
+            <th> Role </th>
+            <th> Update </th>
+            <th> Delete </th>
+        </tr>
+        {% for users in users_list %}
+        <tr>
+            <!--  <td>{{users.UserID}}</td>  -->
+            <td>{{users.first_name}}</td>
+            <td>{{users.last_name}}</td>
+            <td>{{users.email}}</td> <!-- replace this with last updated /created date -->
+            <td>{{users.role}}</td>
+            <td> Edit </td>
+            <td> <a href = "{% url 'Users:Delete_User' users.UserID %}"> Delete </a> </td>
+
+        </tr>
+       {% endfor %}
+
+        </table>
+
+    </section>
+
+
+
+{% endblock %}

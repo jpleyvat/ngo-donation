@@ -1,14 +1,16 @@
 '''Donations models.'''
 from time import time
 
-# Django
+# Django.
 from django.db import models
-from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
+# Models.
+from users.models import CustomUser
 # Create your models here.
 def get_id():
     return int(time())
-class DonationType(models.Model):
+class Charity(models.Model):
     '''Donation types models.'''
     _id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
     name = models.CharField(max_length=50)
@@ -18,13 +20,16 @@ class DonationType(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = _('charity')
+        verbose_name_plural = _('charities')
+
 
 class Donation(models.Model):
     '''Donations models.'''
     _id = models.IntegerField(primary_key=True, editable=False, default=0)
-    _type = models.ForeignKey(DonationType, on_delete=models.CASCADE, blank=False, null=False)
+    charity = models.ForeignKey(Charity, on_delete=models.CASCADE, blank=False, null=False)
     date = models.DateField(auto_created=True, auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     amount = models.IntegerField(blank=False, null=False)
     completed = models.BooleanField(default=False,auto_created=True, editable=False)
     # profile = models.ForeignKey()
