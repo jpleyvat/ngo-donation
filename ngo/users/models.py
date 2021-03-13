@@ -32,7 +32,7 @@ class Profile(models.Model):
         return str(self._id)
 
 class CustomUser(AbstractUser):
-    username = models.CharField(max_length=40, unique=False, default='')    #removing this raises an error when creating a user. This is a required field.
+    username = models.CharField(max_length=40, unique=True, default='')    #removing this raises an error when creating a user. This is a required field.
     first_name = models.CharField(_('first name '),max_length = 66, default = '')
     last_name = models.CharField(_('last name'),max_length = 66, default = '')
     email = models.EmailField(_('email address'), unique = True)
@@ -47,7 +47,7 @@ class CustomUser(AbstractUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email','first_name', 'last_name', 'is_admin']
+    REQUIRED_FIELDS = ['email','first_name', 'last_name']
 
     def __str__(self):
         return self.username

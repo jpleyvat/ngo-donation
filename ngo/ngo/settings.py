@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'users',
     'payment',
 ]
-#AUTH_USER_MODEL = 'Users.User'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 MIDDLEWARE = [
