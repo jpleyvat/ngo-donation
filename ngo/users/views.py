@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .forms import CustomUserForm, UpdateCustomUserForm
-from .models import CustomUser, UserProfile
+from .models import CustomUser, Profile
 from django.views.generic import (
     DeleteView,
     CreateView,

@@ -3,14 +3,7 @@ from time import time
 
 # Django.
 from django.db import models
-<<<<<<< HEAD
-import ngo 
-#User = ngo.settings.AUTH_USER_MODEL
-
-from django.contrib.auth.models import User
-=======
 from django.utils.translation import ugettext_lazy as _
->>>>>>> UserAddition
 
 # Models.
 from users.models import CustomUser

@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser
+from .models import CustomUser,Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -13,29 +13,14 @@ class CustomUserForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = [
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-            'role',
-            'CMA_Num',
-            'Phone',
-            'AddressLineOne',
-            'AddressLineTwo',
-            'City',
-            'State',
-            'Zip',
-            'Country',
-            'Urbanization',
-        ]
+        fields = '__all__'
 
 
 class UpdateCustomUserForm(forms.ModelForm):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    Password = forms.CharField()
+    #first_name = forms.CharField()
+    #last_name = forms.CharField()
+    #email = forms.EmailField()
+    #Password = forms.CharField()
 
     # Ask user before allowing them to update these fields
     CMA_Num = forms.IntegerField()

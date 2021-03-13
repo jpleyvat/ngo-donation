@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from .views import create_user, delete_user, UsersListView
-app_name = 'Users'
+app_name = 'users'
 
 urlpatterns = [
     path('createUser/', create_user, name = 'Create_User' ),
