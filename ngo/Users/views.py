@@ -40,7 +40,7 @@ class UsersListView(ListView):
 class delete_user(DeleteView):
     template_name = "UserTemps/delete_user.html"
     model = CustomUser
-    success_url = reverse_lazy('/')
+    success_url = reverse_lazy('Users:All_Users')
 
 # -------------- Profile View -------------#
 # @login_required

@@ -38,6 +38,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# LOGIN_REDIRECT_URL = '/products'
+LOGIN_URL = '/admin'
 
 # Application definition
 
@@ -70,7 +72,7 @@ ROOT_URLCONF = 'ngo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],   #add this to include the template folder from the project
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,7 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#This ensures that static files are in one place for deployment within large projects
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+AUTH_USER_MODEL = 'Users.CustomUser'
