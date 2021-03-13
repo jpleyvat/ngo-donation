@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'payment',
     'Users',
 ]
-AUTH_USER_MODEL = 'Users.User'
+#AUTH_USER_MODEL = 'Users.User'
 
 
 MIDDLEWARE = [
@@ -137,9 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#This ensures that static files are in one place for deployment within large projects
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-

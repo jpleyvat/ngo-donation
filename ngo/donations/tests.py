@@ -4,11 +4,11 @@
 from django.test import TestCase
 
 # Models
-from .models import (Donation,
-                     DonationType)
+from .models import (Charity, 
+                     Donation)
 
 # Create your tests here.
-class DonationTypeTest(TestCase):
+class CharityTest(TestCase):
     '''Donation type test.'''
     def setUp(self):
         DonationType.objects.create('Dogs')

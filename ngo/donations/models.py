@@ -1,14 +1,17 @@
 '''Donations models.'''
+from time import time
 
 # Django
 from django.db import models
 import ngo 
 #User = ngo.settings.AUTH_USER_MODEL
 
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 # Create your models here.
-class DonationType(models.Model):
+def get_id():
+    return int(time())
+class Charity(models.Model):
     '''Donation types models.'''
     _id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
     name = models.CharField(max_length=50)
@@ -21,18 +24,22 @@ class DonationType(models.Model):
 
 class Donation(models.Model):
     '''Donations models.'''
-    _id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
+    _id = models.IntegerField(primary_key=True, editable=False, default=0)
+    charity = models.ForeignKey(Charity, on_delete=models.CASCADE, blank=False, null=False)
     date = models.DateField(auto_created=True, auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.IntegerField(blank=False, null=False)
-    _type = models.ForeignKey(DonationType, on_delete=models.CASCADE, blank=False, null=False)
-    #current_user = User  
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False,auto_created=True, editable=False)
     # profile = models.ForeignKey()
     # gifts = models.ForeignKey()
 
-    def __str__(self):
-        return str(self.date)
+    def save(self, *args, **kwargs):
+        '''Unique ID'''
+        self._id = get_id()
+        super(Donation, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return str(self._id)
 
     class Meta:
         ordering = ['-date']
