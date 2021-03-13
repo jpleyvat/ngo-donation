@@ -7,5 +7,5 @@ from django.contrib import admin
 from .models import DonationType, Donation
 
 # Register your models here.
-admin.register(DonationType)
-admin.register(Donation)
+admin.site.register(DonationType)
+admin.site.register(Donation)
