@@ -12,7 +12,7 @@ from .managers import UserManager
 
 # Create your models here.
 class Profile(models.Model):
-    _id = models.IntegerField(primary_key=True, editable=False, default=0)
+    id = models.IntegerField(primary_key=True, editable=False, default=0)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -28,14 +28,14 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         '''Unique ID'''
-        self._id = get_id()
+        self.id= get_id()
         super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.user
 
 class CustomUser(AbstractUser):
-    _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable = False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable = False)
     username = models.CharField(max_length=40, unique=False, default='')    #removing this raises an error when creating a user. This is a required field.
 
     first_name = models.CharField(_('first name '),max_length = 66, default = '')
