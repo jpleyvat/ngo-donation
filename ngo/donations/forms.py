@@ -29,7 +29,20 @@ class ProfileForm(forms.ModelForm):
 
     class Meta():
         model = Profile
-        fields = ['city']
+        fields = '__all__'
+        exclude = ['bio']
+
+    # def __init__(self, *args, **kwargs):
+    #     exclude = kwargs.pop('exclude', [])
+    #     initial = kwargs.pop('initial', [])
+    #     print(kwargs)
+    #     super(ProfileForm, self).__init__(*args, **kwargs)
+    #     # if not first_name_check:
+    #     for _ in exclude:
+    #         del self.fields[_]
+    #     # for _ in exclude:
+    #     #     del self.fields[_]
+    #         # del self.fields['first_name']
 
 
 class DonationForm(ModelFormSetView):
