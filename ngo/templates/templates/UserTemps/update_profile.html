@@ -1,0 +1,35 @@
+{% extends "home.html" %}
+
+<h1> Update Profile </h1>
+
+{% block content %}
+
+<div style="Width:30%; margin:auto;">
+
+<form method="post" >
+
+  {% csrf_token %}
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+
+  {% for field in form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {{ field }}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/" class="btn btn-light">Cancel</a>
+
+</form>
+
+</div>
+
+
+{% endblock %}
