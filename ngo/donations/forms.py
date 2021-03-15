@@ -3,7 +3,7 @@ from django import forms
 
 # Models.
 from users.models import Profile
-from .forms import Donation 
+
 
 
 class ProfileForm(forms.ModelForm):
@@ -15,6 +15,3 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['bio']
 
-class DonationForm(forms.ModelForm):
-    class Meta():
-        model = Donation
