@@ -1,42 +1,96 @@
+/* Global styles */
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     list-style: none;
+
+
 }
 
+a{
+    text-decoration: none;
+
+
+}
+
+/* Top navbar styles */
 .top_nav{
     display: flex;
     justify-content: flex-end;
-}
-.top_nav > * {
-    margin: 1rem;
+
+
 }
 
+/* Top navbar children styles */
+.top_nav > * {
+    margin: 1rem;
+
+
+}
+
+/* Dashboard styles */
 .dashboard{
     display: flex;
     width: 100vw;
+    height: 100vh;
+
+
 }
 
 .dashboard .left_nav{
-    width: 15rem;
+    width: 20rem;
+
+
 }
-/* .dashboard .left_nav ul li{ */
-/*     margin: 1rem; */
-/* } */
 
 .dashboard .block{
     width: 100%;
-    padding: 0 5%;
+    height: 100%;
+    /* padding: 0 5%; */
+    display: flex;
+    justify-content: center;
+
+
 }
 
+ /*table style */
+.user_table {
+    border-spacing: 5px;
 
-/* .dashboard .donations ul{ */
-/*     display: flex; */
-/*     flex-direction: row; */
-/*     justify-content:space-evenly; */
-/*     margin: 1rem; */
-/* } */
 
-/* .dashboard .donations ul li{ */
-/* } */
+
+}
+
+/* table text center*/
+tr>*{
+    text-align: center;
+
+
+}
+
+/* table heading style */
+th {
+    text-align:left;
+    padding: 15px;
+
+
+}
+
+/* table content style */
+td{
+   text-align: left;
+   padding: 15px;
+
+
+
+}
+/* Login styles */
+.login{
+    width: 30rem;
+}
+
+/* Bootstrap styles */
+.accordion-body{
+    padding: 0;
+}

@@ -14,7 +14,7 @@ def get_id():
 
 class Charity(models.Model):
     '''Donation types models.'''
-    cause_id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
+    charity_id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
     name = models.CharField(max_length=50)
 
     def __str__(self):

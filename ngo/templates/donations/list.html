@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Donations Management{% endblock title %}
 {% block content %}
-
    <section>
     <h1 style="text-align: center "> User Management </h1>
         <table class="user_table table-bordered" width="90%" >
@@ -24,11 +23,11 @@
             <td>{{ donation.amount }}</td>
             {% if donation.completed == True %}
                 <td>
-                    <span class="badge badge-pill badge-primary">Yes</span>
+                    <span class="badge rounded-pill bg-success">Completed</span>
                 </td>
             {%else %}
                 <td>
-                    <span class="badge badge-pill badge-danger">No</span>
+                    <span class="badge rounded-pill bg-danger">Pending</span>
                 </td>
             {% endif%}
         </tr>

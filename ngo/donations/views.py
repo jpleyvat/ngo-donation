@@ -27,12 +27,15 @@ class ListDonations(LoginRequiredMixin, ListView):
     template_name = 'donations/list.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        
         user = self.request.user
-
-        donations = Donation.objects.all()\
-            if user.is_staff\
-            else Donation.objects.filter(pk=user._id)
+        context = super().get_context_data(**kwargs)
+        if self.request.get_full_path() == '/donations/mydonations/':
+            donations = Donation.objects.filter(profile=user.profile.profile_id)
+        elif self.request.get_full_path() == '/donations/':
+            donations = Donation.objects.all()\
+                if user.is_staff\
+                else Donation.objects.filter(profile=user.profile.profile_id)
 
         context['donations'] = donations
         return context
@@ -101,6 +104,8 @@ def define_user_and_profile(instance):
 
 def complete_donation(primary_key):
     '''Completes a donation'''
+    import ipdb
+    ipdb.set_trace()
     profile_id = primary_key
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
     donation.completed = True

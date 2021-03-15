@@ -27,11 +27,11 @@
             <td>{{users.email}}</td>
             {% if users.is_staff == True %}
                 <td>
-                    <span class="badge badge-pill badge-primary">Yes</span>
+                    <span class="badge rounded-pill bg-primary">Yes</span>
                 </td>
             {%else %}
                 <td>
-                    <span class="badge badge-pill badge-danger">No</span>
+                    <span class="badge rounded-pill bg-secondary">No</span>
                 </td>
             {% endif%}
             <td> <a href = "{% url 'users:Update_User' users.user_id   %}" class="btn btn-info" role="button"> Edit </a> </td>
