@@ -17,8 +17,6 @@
 </head>
 <body>
      <div class="top_nav">
-        <a class = "nav-link" href = "{% url 'home'%}">NGO</a>
-        <a class = "nav-link" href="#">Hi {{user.username}}</a>
         {% if user.is_authenticated %}
             <a class = "nav-link" href = "{% url 'logout'%}">logout</a>
         {% else %}
@@ -27,69 +25,73 @@
     </div>
 
      <div class="dashboard">
-        <div class="left_nav">
-            <div class="accordion" id="accordionExample">
-                {% if request.user.is_staff %}
+        {% if user.is_authenticated %}
+
+            <div class="left_nav">
+                <div class="accordion" id="accordionExample">
+                    {% if request.user.is_staff %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Admin panel
+                                </button>
+                            </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <a href = "{% url 'users:All_Users'%}">Users Management</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href = "{% url 'donations:list'%}">
+                                            Donations Management
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                    {%endif%}
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Admin panel
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Donations
                             </button>
                         </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href = "{% url 'users:All_Users'%}">Users Management</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href = "{% url 'donations:list'%}">
-                                        Donations Management
-                                    </a>
-                                </li>
-                            </ul>
+                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <a href = "{% url 'donations:list_my_donations'%}">My Donations</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href = "{% url 'donations:create'%}">Donate</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                {%endif%}
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            Donations
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href = "{% url 'donations:list_my_donations'%}">My Donations</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href = "{% url 'donations:create'%}">Donate</a>
-                                </li>
-                            </ul>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                Profile
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <a href = "#">My profile</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                            Profile
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href = "#">My profile</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    
             </div>
-                
-        </div>
+        {% endif %}
+
         <div class="block">
             {% block content %}
             {% endblock content %}
