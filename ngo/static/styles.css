@@ -25,6 +25,8 @@ a{
 .top_nav{
     display: flex;
     justify-content: flex-end;
+    position: sticky;
+    top: 0;
 
 
 }
@@ -92,7 +94,7 @@ td{
 }
 
 /* Donations styles */
-form.donation{
+form.form{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -100,18 +102,18 @@ form.donation{
 
 }
 
-form.donation .form{
+form.form .form{
     display: flex;
     justify-content: center;
 
 
 }
 
-form.donation .form > *{
+form.form .form > *{
     margin: 0 1rem;
 }
 
-form.donation .form .btn{
+form.form .form .btn{
     margin: 1rem 0;
     width: 100%;
 

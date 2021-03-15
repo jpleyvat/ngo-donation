@@ -1,8 +1,11 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}Create Product{% endblock title %}
+
+
+
 {% block content %}
-    <form class="donation" method="post" action="{% url 'donations:create' %}">{% csrf_token %}
+    <form class="form" method="post" action="{% url 'donations:create' %}">{% csrf_token %}
         <div class="form">
             <div>
                 {{ form|crispy }}

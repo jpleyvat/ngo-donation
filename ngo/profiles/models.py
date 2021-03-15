@@ -29,7 +29,7 @@ class Profile(models.Model):
         '''Unique ID'''
         if not self.profile_id:
             self.profile_id = get_id()
-        super(Profile, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return ' '.join((self.first_name, self.last_name)) if self.first_name and self.last_name else str(self.profile_id)

@@ -80,7 +80,7 @@
                             <div class="accordion-body">
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <a href = "#">My profile</a>
+                                        <a href = "{% url 'profile:update' request.user.profile.profile_id%}">My profile</a>
                                     </li>
                                 </ul>
                             </div>
