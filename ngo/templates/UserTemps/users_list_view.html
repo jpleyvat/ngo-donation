@@ -7,7 +7,6 @@
    </head>
    <section>
     <h1 style="text-align: center "> User Management </h1>
-
         <table class="user_table table-bordered" width="90%" >
         <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
                 <a href = "{% url 'users:Create_User'%}" class="btn btn-info ">Add User </a>
@@ -17,7 +16,7 @@
             <th> First Name </th>
             <th> Last Name </th>
             <th> Email </th>
-            <th> Role </th>
+            <th> Admin </th>
             <th> Update </th>
             <th> Delete </th>
         </tr>
@@ -27,10 +26,13 @@
             <td>{{users.last_name}}</td>
             <td>{{users.email}}</td>
             {% if users.is_staff == True %}
-                <td>Admin</td>
+                <td>
+                    <span class="badge badge-pill badge-primary">Yes</span>
+                </td>
             {%else %}
-                <td>User</td>
-
+                <td>
+                    <span class="badge badge-pill badge-danger">No</span>
+                </td>
             {% endif%}
             <td> <a href = "{% url 'users:Update_User' users.user_id   %}" class="btn btn-info" role="button"> Edit </a> </td>
             <td> <a href = "{% url 'users:Delete_User' users.user_id   %}"class="btn btn-danger" role="button"> Delete </a> </td>

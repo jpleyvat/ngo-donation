@@ -19,25 +19,24 @@
 }
 
 .dashboard .left_nav{
-    width: 10rem;
+    width: 15rem;
 }
-.dashboard .left_nav ul li{
-    margin: 1rem;
-}
+/* .dashboard .left_nav ul li{ */
+/*     margin: 1rem; */
+/* } */
 
 .dashboard .block{
     width: 100%;
+    padding: 0 5%;
 }
 
-/* .dashboard .donations{ */
-/*     width: 100%; */
+
+/* .dashboard .donations ul{ */
+/*     display: flex; */
+/*     flex-direction: row; */
+/*     justify-content:space-evenly; */
+/*     margin: 1rem; */
 /* } */
-.dashboard .donations ul{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-evenly;
-    margin: 1rem;
-}
 
-.dashboard .donations ul li{
-}
+/* .dashboard .donations ul li{ */
+/* } */

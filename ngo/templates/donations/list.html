@@ -1,17 +1,41 @@
 {% extends 'base.html' %}
 {% block title %}Donations Management{% endblock title %}
 {% block content %}
-<div class="donations">
-    {% for donation in donations%}
-    <span>
-        <ul>
-            <li>{{ donation.user }}</li>
-            <li>{{ donation.date }}</li>
-            <li>{{ donation.amount }}</li>
-            <li>{{ donation.completed }}</li>
-        </ul>
-    </span>
-    {% endfor %}
-</div>
 
+   <section>
+    <h1 style="text-align: center "> User Management </h1>
+        <table class="user_table table-bordered" width="90%" >
+        <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
+            <a href = "{% url 'donations:create'%}" class="btn btn-info ">Donate</a>
+           </div>
+        </thead>
+        <tr>
+            <th> Donor </th>
+            <th> Donation Date </th>
+            <th> Charity </th>
+            <th> Amount </th>
+            <th> Status </th>
+        </tr>
+        {% for donation in donations %}
+        <tr>
+            <td>{{ donation.profile }}</td>
+            <td>{{ donation.date }}</td>
+            <td>{{ donation.charity }}</td>
+            <td>{{ donation.amount }}</td>
+            {% if donation.completed == True %}
+                <td>
+                    <span class="badge badge-pill badge-primary">Yes</span>
+                </td>
+            {%else %}
+                <td>
+                    <span class="badge badge-pill badge-danger">No</span>
+                </td>
+            {% endif%}
+        </tr>
+       {% endfor %}
+
+        </table>
+
+
+    </section>
 {% endblock content %}

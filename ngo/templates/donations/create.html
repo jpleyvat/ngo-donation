@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Create Product{% endblock title %}
 {% block content %}
 <form method="post" action="{% url 'donations:create' %}">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     {% for formset in inlines %}
         <div>
-            {{ formset.as_p }}
+            {{ formset|crispy }}
         </div>
     {% endfor %}
-    <input type="submit" value="Submit" />
-    <!-- <input type="submit" value="Save"> -->
+    <input type="submit" class="btn btn-success" value="Submit" />
 </form>
 
 {% endblock content %}
