@@ -1,18 +1,17 @@
 '''Donations views.'''
+
 # Django
 from django.urls import reverse
 from django.views.generic.list import ListView
-# from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Django REST Framework
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.decorators import api_view, renderer_classes
 
 # Extra views.
-from extra_views import CreateWithInlinesView, InlineFormSetFactory, NamedFormsetsMixin
+from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 # Models
 from users.models import Profile
@@ -39,6 +38,7 @@ class ListDonations(LoginRequiredMixin, ListView):
         return context
 
 class DonationInline(InlineFormSetFactory):
+    '''Donation Inline.'''
     model = Donation
     fields = '__all__'
     formset_kwargs = {'form_kwargs': {}}
@@ -47,7 +47,7 @@ class DonationInline(InlineFormSetFactory):
 
     def get_formset_kwargs(self):
         '''Brings pending donation.'''
-        kwargs = super(DonationInline, self).get_formset_kwargs()
+        kwargs = super().get_formset_kwargs()
 
         define_user_and_profile(self)
 
@@ -62,12 +62,11 @@ class DonationInline(InlineFormSetFactory):
 
         return kwargs
 
-class CreateDonation(NamedFormsetsMixin, CreateWithInlinesView):
+class CreateDonation(CreateWithInlinesView):
     '''Creates new donation'''
 
     model = Profile
     inlines = [DonationInline]
-    inlines_names = ['Donation']
     template_name = 'donations/create.html'
     form_class = ProfileForm
 
@@ -84,15 +83,8 @@ class CreateDonation(NamedFormsetsMixin, CreateWithInlinesView):
         return form_class(**kwargs)
 
     def get_success_url(self):
+        '''Sends to payment'''
         return reverse('donations:mock', args=(self.profile.profile_id, ))
-
-# class MockPayment(APIView):
-#     '''Mock payment.'''
-#     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'donations/mock.html'
-
-#     def get(self, request, **kwargs):
-#         return complete_donation(kwargs['pk'])
 
 @api_view(['GET'])
 @renderer_classes([TemplateHTMLRenderer])
