@@ -84,3 +84,25 @@ class UpdateProfile(forms.ModelForm):
     zip_code = forms.CharField()
     country = forms.CharField()
     urbanization = forms.CharField()
+    
+    
+    #--------------------------- Register User ------------------------#
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+        ]
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control',  'size': '40'}),
+            'first_name': forms.TextInput(attrs={'class':'form-control', 'size': '40'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control',  'size': '40'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control',  'size': '40'}),
+            'password': forms.TextInput(attrs={'class': 'form-control',  'size': '40'}),
+
+        }
+
+    
