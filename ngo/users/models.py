@@ -3,11 +3,12 @@ from time import time
 # Django
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 
 from .managers import UserManager
 
@@ -59,6 +60,11 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    #gives users with is_staff permissions
+    def has_perm(self, perm, obj=None):
+        return self.is_staff
+
 
     class Meta:
         verbose_name = _('user')

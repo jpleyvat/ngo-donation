@@ -49,7 +49,7 @@ class UserUpdateView(UpdateView):
         'first_name',
         'last_name',
         'email',
-        # 'password'
+        'password'
     ]
     success_url =  reverse_lazy('users:All_Users')
 
@@ -73,7 +73,67 @@ class delete_user(DeleteView):
 
 #----------------- Profile ------------------------#
 def get_profile(request):
+    user = CustomUser.objects.filter(profile = request.user)
+    return render(request, '', {})
 
+
+
+def create_profile(request):
+    form = ProfileForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('users:All_Users'))
+    context = {
+        'form': form
+    }
+
+    return render(request, "UserTemps/create_profile.html", context)
+
+
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    template_name = 'UserTemps/update_profile.html'
+    fields = [
+        'bio',
+        'location',
+        'birth_date',
+        'cma_num',
+        'phone',
+        'addressLineOne',
+        'addressLineTwo',
+        'city',
+        'state',
+        'zip_code',
+        'country',
+        'urbanization',
+    ]
+    success_url =  reverse_lazy('users:All_Users') #update this to home once it's created
+
+
+# class login_view(auth_views.LoginView):
+#     form_class = LoginForm
+#     template_name = 'registration/login.html'
+
+
+def login_request(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            email= form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request=request,
+                  template_name="users/login.html",
+                  context={"form": form})
     user = CustomUser.objects.filter(profile = request.user)
     return render(request, '', {})
 

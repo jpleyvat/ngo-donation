@@ -7,7 +7,6 @@ from .views import (
     UserUpdateView,
     create_profile,
     login_request
-    
 )
 
 app_name = 'users'
