@@ -6,6 +6,7 @@ from .views import (
     UsersListView,
     UserUpdateView,
     create_profile,
+    login_request
     
 )
 
@@ -19,6 +20,4 @@ urlpatterns = [
     path('createProfile/', create_profile, name = 'Create_Profile' ),
     path('', include("django.contrib.auth.urls")),
     path('login/', login_request, name= 'login'),
-
-
 ]
