@@ -30,10 +30,10 @@ class Charity(models.Model):
 class Donation(models.Model):
     '''Donations models.'''
     donation_id = models.IntegerField(primary_key=True, editable=False, default=0)
-    charity = models.ForeignKey(Charity, on_delete=models.CASCADE, blank=False, null=False)
-    date = models.DateField(auto_created=True, auto_now=True)
+    date = models.DateField(auto_created=True,auto_now=True)
+    name = models.CharField(max_length=50)
     amount = models.IntegerField(blank=False, null=False)
-    completed = models.BooleanField(default=False,auto_created=True, editable=False)
+    completed = models.BooleanField(default=False,auto_created=True,editable=False)
     profile = models.ForeignKey(Profile, on_delete=models.DO_NOTHING, )
     # gifts = models.ForeignKey()
 

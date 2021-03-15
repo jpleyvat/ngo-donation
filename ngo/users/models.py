@@ -59,12 +59,14 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ['password', 'is_staff']
 
     def __str__(self):
-        return self.email
+        return self.username
 
     #gives users with is_staff permissions
     def has_perm(self, perm, obj=None):
         return self.is_staff
 
+
+   
 
     class Meta:
         verbose_name = _('user')

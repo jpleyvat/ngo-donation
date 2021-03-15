@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Profile
+from users.models import CustomUser, Profile
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django.contrib.auth.models import User
 
@@ -38,9 +38,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = [
-            'bio',
-            'location',
-            'birth_date',
             'cma_num',
             'phone',
             'addressLineOne',
@@ -71,11 +68,9 @@ class ProfileForm(forms.ModelForm):
 
 
 class UpdateProfile(forms.ModelForm):
-    bio = forms.CharField()
-    location = forms.CharField()
-    birth_date = forms.DateField()
     cma_num = forms.IntegerField()
     phone = forms.CharField()
+    email = forms.CharField()
     addressLineOne = forms.CharField()
     addressLineTwo = forms.CharField()
     city = forms.CharField()

@@ -16,8 +16,7 @@ import environ
 # Environment
 
 # Initialize environment variables
-env = environ.Env()
-environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,7 +35,7 @@ SECRET_KEY = 'l3iuj12e(#1n&y*npjox4zjmoz719w^7rgzk45xnw7zfm(cb0h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # LOGIN_REDIRECT_URL = '/products'
 LOGIN_URL = '/admin'
@@ -58,7 +57,7 @@ INSTALLED_APPS = [
     'extra_views',
     'crispy_forms',
 ]
-
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 MIDDLEWARE = [
