@@ -7,6 +7,7 @@ from django.views.generic import (
     DeleteView,
     CreateView,
     ListView,
+    UpdateView,
 )
 
 
@@ -34,11 +35,17 @@ class UsersListView(ListView):
     template_name = 'UserTemps/users_list_view.html'
 
 
-
+class UserUpdateView(UpdateView):
+    template_name = "UserTemps/update_user.html"
+    model = CustomUser
+    fields = '__all__'
+    success_url = reverse_lazy('Users:All_Users')
+    
 
 
 class delete_user(DeleteView):
     template_name = "UserTemps/delete_user.html"
+
     model = CustomUser
     success_url = reverse_lazy('Users:All_Users')
 

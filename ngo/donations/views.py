@@ -54,3 +54,6 @@ class MockPayment(APIView):
         donation.completed = True
         donation.save()
         return Response({'status': '200'})
+
+
+        
