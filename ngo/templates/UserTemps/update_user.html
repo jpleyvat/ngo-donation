@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block title %} Register User {% endblock %}
+<h1> Update User </h1>
 {% block content %}
-
 <div style="Width:30%; margin:auto;">
 <form method="post" >
   {% csrf_token %}
@@ -20,8 +19,8 @@
     </div>
   {% endfor %}
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-
+  <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/" class="btn btn-light">Cancel</a>
 </form>
 </div>
 {% endblock %}

@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
-# Environment
 import environ
+# Environment
 
 # Initialize environment variables
 env = environ.Env()
@@ -23,6 +23,7 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -30,13 +31,12 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # if env('SECRET_KEY'):
     
 
-# SECRET_KEY = 'l3iuj12e(#1n&y*npjox4zjmoz719w^7rgzk45xnw7zfm(cb0h'
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'l3iuj12e(#1n&y*npjox4zjmoz719w^7rgzk45xnw7zfm(cb0h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = []
 
 # LOGIN_REDIRECT_URL = '/products'
 LOGIN_URL = '/admin'
@@ -51,9 +51,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'widget_tweaks',
     'donations',
     'users',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,6 +88,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ngo.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -95,16 +99,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default':{
-#         'ENGINE': 'mysql.connector.django',
-#         'NAME': os.environ.get('DB_NAME'),
-#         'USER': os.environ.get('DB_USER'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD'),
-#         'HOST': 'db',
-#         'PORT': os.environ.get('DB_PORT') 
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -124,6 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -137,6 +132,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -146,4 +142,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = False
+
+
+AUTH_USER_MODEL = 'users.CustomUser'  #
+
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable email login
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+

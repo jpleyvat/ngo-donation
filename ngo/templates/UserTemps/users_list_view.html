@@ -8,8 +8,11 @@
    <section>
     <h1 style="text-align: center "> User Management </h1>
 
-        <table class="user_table" width="100%">
-        <thead><a href = "{% url 'Users:Create_User'%}">Add User </a></thead>
+        <table class="user_table table-bordered" width="90%" >
+        <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
+                <a href = "{% url 'users:Create_User'%}" class="btn btn-info ">Add User </a>
+               </div>
+        </thead>
         <tr>
             <th> First Name </th>
             <th> Last Name </th>
@@ -20,13 +23,17 @@
         </tr>
         {% for users in users_list %}
         <tr>
-            <!--  <td>{{users.UserID}}</td>  -->
             <td>{{users.first_name}}</td>
             <td>{{users.last_name}}</td>
-            <td>{{users.email}}</td> <!-- replace this with last updated /created date -->
-            <td>{{users.role}}</td>
-            <td> Edit </td>
-            <td> <a href = "{% url 'Users:Delete_User' users.UserID %}"> Delete </a> </td>
+            <td>{{users.email}}</td>
+            {% if users.is_staff == True %}
+                <td>Admin</td>
+            {%else %}
+                <td>User</td>
+
+            {% endif%}
+            <td> <a href = "{% url 'users:Update_User' users.id   %}" class="btn btn-info" role="button"> Edit </a> </td>
+            <td> <a href = "{% url 'users:Delete_User' users.id   %}"class="btn btn-danger" role="button"> Delete </a> </td>
 
         </tr>
        {% endfor %}

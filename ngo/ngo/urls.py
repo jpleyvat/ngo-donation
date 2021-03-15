@@ -17,9 +17,13 @@ Including another URLconf
 # Django
 from django.contrib import admin
 from django.urls import path, include
+from ngo.views import homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', homepage, name="home"),
     path('donations/', include('donations.urls')),
-    # path('Users/', include('Users.urls')),
+    path('users/', include('users.urls')),
+    path('users/', include("django.contrib.auth.urls")),
+
 ]
