@@ -1,10 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.core.urlresolvers import reverse 
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework.views import APIView
 from .models import Payment
+from cart.cart import Cart 
+
+def order_create(request):
+    cart = Cart(request)
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                
 class PaymentManagement(LoginRequiredMixin,ListView):
     model = Payment
     template_name = 'donations/payment.html'
