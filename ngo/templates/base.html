@@ -17,8 +17,6 @@
 </head>
 <body>
      <div class="top_nav">
-        <a class = "nav-link" href = "{% url 'home'%}">NGO</a>
-        <a class = "nav-link" href="#">Hi {{user.username}}</a>
         {% if user.is_authenticated %}
             <a class = "nav-link" href = "{% url 'logout'%}">logout</a>
         {% else %}
