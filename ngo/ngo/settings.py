@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'paypal.standard.ipn',
     'payment',
+    'profiles',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
