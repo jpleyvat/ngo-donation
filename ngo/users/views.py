@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 
 
 #forms, models and views imports
-from .forms import CustomUserForm, UpdateCustomUserForm, ProfileForm, UpdateProfile, LoginForm
+from .forms import CustomUserForm, UpdateCustomUserForm, ProfileForm, UpdateProfile, LoginForm, RegistrationForm
 from .models import CustomUser, Profile
 from django.views.generic import (
     DeleteView,
@@ -112,7 +112,7 @@ class ProfileUpdateView(UpdateView):
     success_url =  reverse_lazy('users:home') 
 
 
-
+# --------------------------- Login/ register -----------------------#
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -131,3 +131,14 @@ def login_request(request):
     return render(request=request,
                   template_name="users/login.html",
                   context={"form": form})
+
+# -------------------------- Register ----------------------------#
+def register_user(request):
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('home'))
+    context = {
+        'form': form
+    }
+    return render(request, "registration/register.html", context)
