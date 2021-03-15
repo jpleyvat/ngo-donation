@@ -50,9 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'ipdb',
+    'widget_tweaks',
     'donations',
     'users',
-    'payment',
+    'extra_views',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -141,4 +143,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = False
+
+
+AUTH_USER_MODEL = 'users.CustomUser'  #
+
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable email login
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
