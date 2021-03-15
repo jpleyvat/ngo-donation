@@ -28,7 +28,6 @@ class UpdateCustomUserForm(UserChangeForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
-    Password = forms.CharField()
 
 class LoginForm(AuthenticationForm):
     email = forms.CharField(label='Email ')
