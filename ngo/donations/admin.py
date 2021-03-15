@@ -4,6 +4,7 @@
 from django.contrib import admin
 
 # Models.
-from .models import Donation
+from .models import Donation, Charity 
 
+admin.site.register(Charity)
 admin.site.register(Donation)
