@@ -41,7 +41,6 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'cma_num',
             'phone',
-            'email',
             'addressLineOne',
             'addressLineTwo',
             'city',

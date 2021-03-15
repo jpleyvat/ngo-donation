@@ -40,19 +40,6 @@ class Profile(models.Model):
         super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
-<<<<<<< HEAD
-        return str(self._id)
-
-class CustomUser(AbstractUser):
-    username = models.CharField(max_length=40, unique=True, default='')    #removing this raises an error when creating a user. This is a required field.
-    first_name = models.CharField(_('first name '),max_length = 66, default = '')
-    last_name = models.CharField(_('last name'),max_length = 66, default = '')
-    email = models.EmailField(_('email address'), unique = True)
-
-    #Change role to boolean is_staff so validations can be made easier
-    # role = models.CharField(max_length = 20, choices = CHOICES)
-    is_admin = models.BooleanField(_('admin status'), default=False, help_text=_('Determines if user can access the admin site'))
-=======
         return ' '.join((self.first_name, self.last_name)) if self.first_name and self.last_name else str(self.profile_id)
 
 class CustomUser(AbstractUser):
@@ -62,20 +49,14 @@ class CustomUser(AbstractUser):
     is_staff = models.BooleanField(_('staff status'), default=False, help_text=_('Determines if user can access the admin site'))
 
     is_active = models.BooleanField(_('is active'), default = True)
->>>>>>> main
     date_joined = models.DateTimeField(_('date joined'), auto_now_add = True)
     password = models.CharField(max_length = 60, editable=False, default = '')
     profile = models.OneToOneField(Profile, unique=True, on_delete=models.DO_NOTHING, null=True)
 
     objects = UserManager()
 
-<<<<<<< HEAD
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email','first_name', 'last_name']
-=======
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['password', 'is_staff']
->>>>>>> main
 
     def __str__(self):
         return self.username
@@ -84,6 +65,8 @@ class CustomUser(AbstractUser):
     def has_perm(self, perm, obj=None):
         return self.is_staff
 
+
+   
 
     class Meta:
         verbose_name = _('user')

@@ -23,13 +23,18 @@
      <div class="dashboard">
         <div class="left_nav">
             <ul >
-                <li> <a href = "{% url 'users:All_Users'%}">User Management</a></li>
-                <li>Donation Management </li>
-                <li>User View</li>
-                <li>My profile</li>
-
+                    {% if user.is_staff %} 
+                        <li> <a href = "{% url 'users:All_Users'%}">User Management</a></li>
+                        <li> Donation Management </li>
+                        <li> User View </li>
+                    {% else %}
+                        <li> User Management  </li>
+                        <li> Event Management </li>
+                        <li> User View </li> 
+                    {% endif %} 
             </ul>
         </div>
+        <h1></h1>
         <div class="block">
             {% block content %}
             {% endblock content %}
