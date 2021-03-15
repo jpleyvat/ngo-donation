@@ -49,7 +49,7 @@ class UserUpdateView(UpdateView):
         'first_name',
         'last_name',
         'email',
-        'password'
+        # 'password'
     ]
     success_url =  reverse_lazy('users:All_Users')
 

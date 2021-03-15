@@ -32,8 +32,8 @@
                 <td>User</td>
 
             {% endif%}
-            <td> <a href = "{% url 'users:Update_User' users.id   %}" class="btn btn-info" role="button"> Edit </a> </td>
-            <td> <a href = "{% url 'users:Delete_User' users.id   %}"class="btn btn-danger" role="button"> Delete </a> </td>
+            <td> <a href = "{% url 'users:Update_User' users.user_id   %}" class="btn btn-info" role="button"> Edit </a> </td>
+            <td> <a href = "{% url 'users:Delete_User' users.user_id   %}"class="btn btn-danger" role="button"> Delete </a> </td>
 
         </tr>
        {% endfor %}
