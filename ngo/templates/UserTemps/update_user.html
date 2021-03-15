@@ -1,26 +1,14 @@
 {% extends "base.html" %}
-<h1> Update User </h1>
+{% load crispy_forms_tags %}
 {% block content %}
-<div style="Width:30%; margin:auto;">
+
+
+
 <form method="post" >
-  {% csrf_token %}
-
-  {% for hidden_field in form.hidden_fields %}
-    {{ hidden_field }}
-  {% endfor %}
-
-  {% for field in form.visible_fields %}
-    <div class="form-group">
-      {{ field.label_tag }}
-      {{ field }}
-      {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text }}</small>
-      {% endif %}
+    {{form|crispy}}
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="submit" class="btn btn-info">Save</button>
+        <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
     </div>
-  {% endfor %}
-
-  <button type="submit" class="btn btn-primary">Save</button>
-    <a href="/" class="btn btn-light">Cancel</a>
 </form>
-</div>
 {% endblock %}
