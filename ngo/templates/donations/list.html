@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Donations Management{% endblock title %}
+
+
 {% block content %}
    <section>
-    <h1 style="text-align: center "> User Management </h1>
+    <h1 style="text-align: center "> Donations </h1>
         <table class="user_table table-bordered" width="90%" >
         <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
             <a href = "{% url 'donations:create'%}" class="btn btn-info ">Donate</a>
@@ -23,7 +25,7 @@
             <td>{{ donation.amount }}</td>
             {% if donation.completed == True %}
                 <td>
-                    <span class="badge rounded-pill bg-success">Completed</span>
+                    <span class="badge rounded-pill bg-primary">Completed</span>
                 </td>
             {%else %}
                 <td>

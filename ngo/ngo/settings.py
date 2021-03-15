@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'users',
     'extra_views',
     'crispy_forms',
+    'profiles',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 

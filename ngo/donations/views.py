@@ -104,8 +104,6 @@ def define_user_and_profile(instance):
 
 def complete_donation(primary_key):
     '''Completes a donation'''
-    import ipdb
-    ipdb.set_trace()
     profile_id = primary_key
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
     donation.completed = True
