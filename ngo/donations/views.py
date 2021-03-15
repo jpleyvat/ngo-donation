@@ -2,8 +2,11 @@
 
 # Django
 from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 # Django REST Framework
 from rest_framework.response import Response
@@ -15,19 +18,57 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 # Models
 from users.models import Profile
-from .models import Donation
+from .models import Donation, Charity
 
 # Forms
 from .forms import ProfileForm
 
 # Create your views here.
+class ListCharities(ListView):
+    model = Charity
+    template_name = 'charities/list.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+        if self.request.get_full_path() == '/donations/charities/' and not self.request.user.is_staff:
+            return HttpResponseRedirect('/')
+        if not allow_empty:
+            # When pagination is enabled and object_list is a queryset,
+            # it's better to do a cheap query than to load the unpaginated
+            # queryset in memory.
+            if self.get_paginate_by(self.object_list) is not None and hasattr(self.object_list, 'exists'):
+                is_empty = not self.object_list.exists()
+            else:
+                is_empty = not self.object_list
+            if is_empty:
+                raise Http404(_('Empty list and “%(class_name)s.allow_empty” is False.') % {
+                    'class_name': self.__class__.__name__,
+                })
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        '''Gets context.'''
+        context = super().get_context_data(**kwargs)
+        charities = Charity.objects.all()
+        context['charities'] = charities
+        return context
+
+class CreateCharity(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+    permission_required = 'is_staff'
+    redirect_field_name = '/'
+    model = Charity
+    fields = ['name', 'active']
+    template_name = 'charities/create.html'
+
 class ListDonations(LoginRequiredMixin, ListView):
     '''List donations view'''
     model = Donation
     template_name = 'donations/list.html'
 
     def get_context_data(self, **kwargs):
-        
+        '''Gets context.'''
         user = self.request.user
         context = super().get_context_data(**kwargs)
         if self.request.get_full_path() == '/donations/mydonations/':
@@ -106,5 +147,13 @@ def complete_donation(primary_key):
     '''Completes a donation'''
     profile_id = primary_key
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
+    donation_id = donation.donation_id
+    charity = Charity.objects.get(charity_id=donation.charity.charity_id)
+
+
     donation.completed = True
     donation.save()
+    charity.donations.add(donation)
+    # charity.donations.add(Donation.objects.get(donation_id=donation_id))
+    print(charity.donations.all())
+    charity.save()

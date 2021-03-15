@@ -26,6 +26,13 @@ class Charity(models.Model):
 
         super().save(*args, **kwargs)
 
+    @property
+    def raised(self):
+        raised = 0
+        for donation in self.donations.all():
+            raised += donation.amount
+        return raised
+
     def __str__(self):
         return str(self.name)
 
