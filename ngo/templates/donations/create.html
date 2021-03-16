@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
-{% block title %}Create Product{% endblock title %}
+{% load crispy_forms_tags %}
+{% block title %}Create Donations {% endblock title %}
+
 {% block content %}
-<form method="post" action="{% url 'donations:create' %}">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+    <form class="form" method="post" action="{% url 'donations:create' %}" style="position: absolute;">{% csrf_token %}
+        <div class="form">
+            <div>
+                {{ form|crispy }}
+            </div>
+            <div >
+                {% for formset in inlines %}
+                    {{ formset|crispy }}
+                {% endfor %}
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" class="btn btn-info" style="margin-right:2%; ">Donate</button>
+                    <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
+                </div>
+
+                <!-- <input type="submit" class="btn btn-success" value="Submit" /> -->
+            </div>
+        </div>
+    </form>
+
 {% endblock content %}

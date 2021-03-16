@@ -1,9 +1,6 @@
  /*table style */
 .user_table {
     border-spacing: 5px;
-
-
-
 }
 
 /* table heading style */
@@ -11,16 +8,14 @@ th {
     text-align:left;
     padding: 15px;
 
-
 }
 
 /* table content style */
 td{
    text-align: left;
    padding: 15px;
-
-
-
 }
 
-
+tr>*{
+    text-align: center;
+}

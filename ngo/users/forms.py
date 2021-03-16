@@ -19,7 +19,6 @@ class CustomUserForm(UserCreationForm):
             'first_name': forms.TextInput(attrs={'class':'form-control', 'size': '40'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'password': forms.TextInput(attrs={'class': 'form-control'}),
             'is_staff': forms.CheckboxInput(attrs={'class': 'form-control'}),
 
         }
@@ -28,12 +27,11 @@ class UpdateCustomUserForm(UserChangeForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
-    Password = forms.CharField()
 
 class LoginForm(AuthenticationForm):
     email = forms.CharField(label='Email ')
 
-
+#----------------------------- Profile form --------------------------------#
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -84,9 +82,9 @@ class UpdateProfile(forms.ModelForm):
     zip_code = forms.CharField()
     country = forms.CharField()
     urbanization = forms.CharField()
-    
-    
-    #--------------------------- Register User ------------------------#
+
+
+#--------------------------- Register User ------------------------#
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = CustomUser
@@ -97,12 +95,10 @@ class RegistrationForm(forms.ModelForm):
             'email',
         ]
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control',  'size': '40'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
             'first_name': forms.TextInput(attrs={'class':'form-control', 'size': '40'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control',  'size': '40'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control',  'size': '40'}),
-            'password': forms.TextInput(attrs={'class': 'form-control',  'size': '40'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
-
-    

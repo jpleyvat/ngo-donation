@@ -1,17 +1,59 @@
-{% extends 'base.html' %}
+{% extends 'Home.html' %}
 {% block title %}Donations Management{% endblock title %}
+{% load static %}
 {% block content %}
-<div class="donations">
-    {% for donation in donations%}
-    <span>
-        <ul>
-            <li>{{ donation.user }}</li>
-            <li>{{ donation.date }}</li>
-            <li>{{ donation.amount }}</li>
-            <li>{{ donation.completed }}</li>
-        </ul>
-    </span>
-    {% endfor %}
-</div>
+<head>
+    <meta charset="UTF-8">
+    <title>NGO Donations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+       <link rel="stylesheet" href="{% static 'user_table.css' %}" type="text/css">
+   </head>
+   <section style="float: right; width:60%;
+            height:200px;
+            position: fixed;
+            top: 30%;
+            left: 40%;
+            margin-top: -100px;
+            margin-left: -100px;">
+    <h1 style="text-align: center; margin-bottom:20px; "> Donations </h1>
+        <table class="user_table table-bordered" width="90%" >
+        <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
+            <a href = "{% url 'donations:create'%}" class="btn btn-info ">Donate</a>
+           </div>
+        </thead>
+        <tr>
+            <th> Donor </th>
+            <th> Donation Date </th>
+            <th> Charity </th>
+            <th> Amount </th>
+            <th> Status </th>
+        </tr>
+        {% for donation in donations %}
+        <tr>
+            <td>{{ donation.profile }}</td>
+            <td>{{ donation.date }}</td>
+            <td>{{ donation.charity }}</td>
+            <td>{{ donation.amount }}</td>
+            {% if donation.completed == True %}
+                <td>
+                    <span class="badge rounded-pill bg-primary">Completed</span>
+                </td>
+            {%else %}
+                <td>
+                    <span class="badge rounded-pill bg-danger">Pending</span>
+                </td>
+            {% endif%}
+        </tr>
+       {% endfor %}
 
+        </table>
+
+
+    </section>
 {% endblock content %}

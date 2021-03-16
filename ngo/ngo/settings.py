@@ -51,9 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'ipdb',
     'widget_tweaks',
     'donations',
     'users',
+    'extra_views',
+    'crispy_forms',
+    'profiles',
 ]
 
 
@@ -154,4 +158,4 @@ AUTH_USER_MODEL = 'users.CustomUser'  #
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable email login
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

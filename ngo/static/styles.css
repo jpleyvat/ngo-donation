@@ -1,43 +1,154 @@
+/* Global styles */
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     list-style: none;
+
+
 }
 
+a{
+    text-decoration: none;
+}
+
+.btn, .btn-group{
+    width: 100%;
+}
+.btn-group{
+    padding: 1rem 0;
+}
+
+/* Top navbar styles */
 .top_nav{
     display: flex;
     justify-content: flex-end;
+    position: sticky;
+    top: 0;
+
+
 }
+
+/* Top navbar children styles */
 .top_nav > * {
     margin: 1rem;
 }
 
+/* Dashboard styles */
 .dashboard{
     display: flex;
     width: 100vw;
+    height: 100vh;
+
+
 }
 
 .dashboard .left_nav{
-    width: 10rem;
-}
-.dashboard .left_nav ul li{
-    margin: 1rem;
+    width: 20rem;
+
+
 }
 
 .dashboard .block{
     width: 100%;
-}
-
-/* .dashboard .donations{ */
-/*     width: 100%; */
-/* } */
-.dashboard .donations ul{
     display: flex;
-    flex-direction: row;
-    justify-content:space-evenly;
-    margin: 1rem;
+    justify-content: center;
+
+
 }
 
-.dashboard .donations ul li{
+ /*table style */
+.user_table {
+    border-spacing: 5px;
+
+
+
 }
+
+/* table text center*/
+tr>*{
+    text-align: center;
+
+
+}
+
+/* table heading style */
+th {
+    text-align:left;
+    padding: 15px;
+
+
+}
+
+/* table content style */
+td{
+   text-align: left;
+   padding: 15px;
+
+
+
+}
+
+/* Donations styles */
+form.form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+}
+
+form.form .form{
+    display: flex;
+    justify-content: center;
+
+
+}
+
+form.form .form > *{
+    margin: 0 1rem;
+}
+
+form.form .form .btn{
+    margin: 1rem 0;
+    width: 100%;
+
+
+}
+
+/* Login styles */
+.login{
+    width: 30rem;
+
+
+}
+
+
+/* Bootstrap styles */
+.accordion-body{
+    padding: 0;
+
+
+}
+
+.list-group{
+    border-radius: 0;
+
+
+}
+
+.list-group{
+    border-bottom: 1px solid rgba(0,0,0,.125);
+
+
+}
+
+.list-group-item:last-child{
+    border-bottom: initial;
+
+
+}
+
+
+
+

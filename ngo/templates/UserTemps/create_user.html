@@ -1,27 +1,30 @@
 {% extends "base.html" %}
-{% block title %} Register User {% endblock %}
+{% block title %} Create User {% endblock %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-<div style="Width:30%; margin:auto;">
+
+<div style="float: right; width:35%;
+            height:200px;
+            position: fixed;
+            top: 30%;
+            left: 40%;
+            margin-top: -100px;
+            margin-left: -100px; ">
 <form method="post" >
+  <h1 style="text-align: center"> Create User </h1>
+
   {% csrf_token %}
-
-  {% for hidden_field in form.hidden_fields %}
-    {{ hidden_field }}
-  {% endfor %}
-
-  {% for field in form.visible_fields %}
-    <div class="form-group">
-      {{ field.label_tag }}
-      {{ field }}
-      {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text }}</small>
-      {% endif %}
-    </div>
-  {% endfor %}
-
-  <button type="submit" class="btn btn-primary">Submit</button>
+  {{form|crispy}}
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="submit" class="btn btn-info"style="margin-right:2%;">Save</button>
+    <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
+</div>
 
 </form>
+
+
 </div>
+
+
 {% endblock %}

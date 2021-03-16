@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Donations Management{% endblock title %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <form class="form" method="post">{% csrf_token %}
+        <div class="form">
+            <div>
+                {{ form|crispy }}
+            </div>
+            <div>
+                {% for formset in inlines %}
+                    {{ formset|crispy }}
+                {% endfor %}
+                <div class="btn-group" role="group" aria-label="Basic example" style="position: sticky; top:0;">
+                    <button type="submit" class="btn btn-info">Save</button>
+                    <a href="{%url 'home'%}" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}
