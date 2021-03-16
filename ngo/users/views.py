@@ -21,9 +21,6 @@ from django.views.generic import (
 )
 
 
-
-
-
 # ---------------------------- Create, Update, Delete, Users ---------- #
     #use the decorator to only let the admin access user management
 def create_user(request):
@@ -88,40 +85,6 @@ def get_profile(request):
     return render(request, '', {})
 
 
-
-def create_profile(request):
-    form = ProfileForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('users:All_Users'))
-    context = {
-        'form': form
-    }
-
-    return render(request, "UserTemps/create_profile.html", context)
-
-
-
-class ProfileUpdateView(UpdateView):
-    model = Profile
-    template_name = 'UserTemps/update_profile.html'
-    fields = [
-        'bio',
-        'location',
-        'birth_date',
-        'cma_num',
-        'phone',
-        'addressLineOne',
-        'addressLineTwo',
-        'city',
-        'state',
-        'zip_code',
-        'country',
-        'urbanization',
-    ]
-    success_url =  reverse_lazy('users:All_Users') #update this to home once it's created
-
-
 def create_profile(request):
     form = ProfileForm(request.POST or None)
     if form.is_valid():
@@ -153,6 +116,8 @@ class ProfileUpdateView(UpdateView):
         'urbanization',
     ]
     success_url =  reverse_lazy('users:home') 
+
+
 
 
 

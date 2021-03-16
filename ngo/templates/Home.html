@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="navbar">
-  <a class = "nav-link" style="font-size: 20px;" href = "{% url 'home'%} " >Home</a>
+  <a class = "nav-link" href = "{% url 'home'%} " >Home</a>
 <!--  <a href="#news">News</a>-->
   <div class="dropdown">
       <button class="dropbtn"> {% if user.is_authenticated %}{{request.user.email}} {%else%} Sigin/account {% endif%}
@@ -72,6 +72,25 @@
              </li>
          </ul>
        </div>
+
+       <input type="checkbox" id="title3" />
+       <label for="title3" style="font-size: 30px; ">Accounts</label>
+       <div class="content">
+        <ul>
+             <li>
+               <a href = "{% url 'profile:update' request.user.profile.profile_id%}">My profile</a>
+             </li>
+             <li>
+                <a href = "{% url 'donations:list_my_donations'%}">Order History</a> <!-- Donations the user made -->
+             </li>
+         </ul>
+            <ul>
+             <li>
+              <a class = "nav-link" href = "{% url 'logout'%} " >logout</a>
+             </li>
+         </ul>
+       </div>
+
 
      {%endif%}
 

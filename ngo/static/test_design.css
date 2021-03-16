@@ -130,6 +130,7 @@ input {
 label {
     display: block;
     padding: 8px 22px;
+    position: fixed:
     margin: 0 0 1px 0;
     cursor: pointer;
     background: ##F0FFFF;
