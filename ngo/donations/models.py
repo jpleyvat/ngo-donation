@@ -16,7 +16,7 @@ class Charity(models.Model):
     '''Donation types models.'''
     charity_id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
     name = models.CharField(max_length=50)
-
+    image = models.ImageField(upload_to='donations/%Y/%m/%d',blank=True)
     def __str__(self):
         return str(self.name)
 

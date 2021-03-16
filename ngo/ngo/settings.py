@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'payment',
     'profiles',
+    'cart',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -86,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -164,3 +166,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #django-paypal settings 
 PAYPAL_RECEIVER_EMAIL = 'jackson2k@yahoo.com'
 PAYPAL_TEST = True 
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+CART_SESSION_ID = 'cart'

@@ -16,6 +16,13 @@ def order_create(request):
             order = form.save()
             for item in cart:
                 
+
+
+
+
+
+
+                
 class PaymentManagement(LoginRequiredMixin,ListView):
     model = Payment
     template_name = 'donations/payment.html'
