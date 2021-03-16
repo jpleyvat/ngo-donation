@@ -154,4 +154,6 @@ def complete_donation(primary_key):
     donation.completed = True
     donation.save()
     charity.donations.add(donation)
+    # charity.donations.add(Donation.objects.get(donation_id=donation_id))
+    print(charity.donations.all())
     charity.save()

@@ -12,4 +12,3 @@ urlpatterns = [
     path('<int:pk>/', views.ProfileUpdate.as_view(), name = 'update'),
     # path('<pk>/update/', ProfileUpdate.as_view(), name = 'update'),
 ]
-

@@ -10,36 +10,33 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from os import path, getenv
-from os.path import join
+import os
 from pathlib import Path
-from dotenv import load_dotenv
+import environ
 
+# Environment
+
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = path.join(BASE_DIR, 'templates')
-
-# Environment
-# Initialize environment variables
-
-# Production environment variables
-dotenv_path = join(BASE_DIR.parent, '.env')
-load_dotenv(dotenv_path)
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # if env('SECRET_KEY'):
-    
 
-SECRET_KEY = getenv('SECRET_KEY')
+
+SECRET_KEY = 'l3iuj12e(#1n&y*npjox4zjmoz719w^7rgzk45xnw7zfm(cb0h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = [getenv('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = []
 
 # LOGIN_REDIRECT_URL = '/products'
 LOGIN_URL = '/users/login'
@@ -62,8 +59,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'profiles',
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,22 +90,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ngo.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#     'default':{
-#         'ENGINE': 'mysql.connector.django',
-#         'OPTIONS': {
-#             'database': getenv('DB_NAME'),
-#             'user': getenv('DB_USER'),
-#             'password': getenv('DB_PASSWORD'),
-#             'host': getenv('DB_HOST'),
-#             'port': getenv('DB_PORT'),
-#             'raise_on_warnings': True
-#         }
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -118,7 +99,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -138,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -152,25 +131,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
-
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = False
 
-
 AUTH_USER_MODEL = 'users.CustomUser'  #
 
-AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable email login
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']  # add this to enable email login
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

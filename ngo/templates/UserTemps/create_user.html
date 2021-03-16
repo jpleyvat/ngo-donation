@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "Base.html" %}
 {% block title %} Create User {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -16,8 +16,8 @@
 
   {% csrf_token %}
   {{form|crispy}}
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="submit" class="btn btn-info"style="margin-right:2%;">Save</button>
+  <div class="btn-group" role="group" aria-label="Basic example" style=" margin-top: 2%;">
+    <button type="submit" class="btn btn-info"style="margin-right:7%; ">Save</button>
     <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
 </div>
 

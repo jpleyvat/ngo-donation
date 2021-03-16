@@ -14,8 +14,8 @@
   <h1 style="margin-bottom: 25px; text-align:center">Create an Account</h1>
   {% csrf_token %}
   {{form|crispy}}
-  <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 25px;">
-    <button type="submit" class="btn btn-info" style="margin-right:2%;">Save</button>
+  <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 25px;">
+    <button type="submit" class="btn btn-info" style="margin-right:5%;">Save</button>
     <a href="{%url 'home'%}" class="btn btn-danger">Cancel</a>
 </div>
 

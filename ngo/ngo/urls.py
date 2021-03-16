@@ -23,6 +23,7 @@ from donations.views import ListCharities
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', homepage, name="home"),
     path('', ListCharities.as_view(), name="home"),
     path('donations/', include('donations.urls')),
     path('users/', include('users.urls')),
