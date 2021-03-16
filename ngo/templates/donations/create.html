@@ -4,7 +4,14 @@
 
 {% block content %}
     <form class="form" method="post" action="{% url 'donations:create' %}" style="position: absolute;">{% csrf_token %}
-        <div class="form">
+        <div class="form"style="float: right; width:35%; overflow: auto;
+            height:100%;
+            position: fixed;
+            top: 10%;
+            left: 40%;
+            margin-top: -100px;
+            margin-left: -100px; ">
+            <h1 style="text-align: center;"> Donate </h1>
             <div>
                 {{ form|crispy }}
             </div>
@@ -12,8 +19,8 @@
                 {% for formset in inlines %}
                     {{ formset|crispy }}
                 {% endfor %}
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="submit" class="btn btn-info" style="margin-right:2%; ">Donate</button>
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-top:2% ">
+                    <button type="submit" class="btn btn-info" style="margin-right:5%; ">Donate</button>
                     <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
                 </div>
 
