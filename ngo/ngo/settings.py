@@ -86,7 +86,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cart.context_processors.cart',
             ],
         },
     },
@@ -154,8 +153,6 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = False
 
-
-AUTH_USER_MODEL = 'users.CustomUser'  #
 
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable email login
 LOGIN_REDIRECT_URL = 'home'
