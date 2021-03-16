@@ -40,6 +40,11 @@ class CustomUser(AbstractUser):
 
    
 
+    #gives users with is_staff permissions
+    def has_perm(self, perm, obj=None):
+        return self.is_staff
+
+
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
@@ -53,8 +58,3 @@ def create_user_profile(sender, instance, created, **kwargs):
         instance.profile = profile
         instance.save()
 
-
-#fix this
-# @receiver(post_save, sender=CustomUser)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()

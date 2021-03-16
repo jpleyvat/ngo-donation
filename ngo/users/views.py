@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 
 
 #forms, models and views imports
-from .forms import CustomUserForm, UpdateCustomUserForm, ProfileForm, UpdateProfile, LoginForm
+from .forms import CustomUserForm, UpdateCustomUserForm, ProfileForm, UpdateProfile, LoginForm, RegistrationForm
 from .models import CustomUser, Profile
 from django.views.generic import (
     DeleteView,
@@ -39,6 +39,17 @@ def create_user(request):
         'form': form
     }
     return render(request, "UserTemps/create_user.html", context)
+
+def register_user(request):
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('home'))
+    context = {
+        'form': form
+    }
+    return render(request, "registration/register.html", context)
+
 
 class RegisterView(generic.CreateView):
     form_class = CustomUserForm
@@ -117,34 +128,6 @@ class ProfileUpdateView(UpdateView):
     success_url =  reverse_lazy('users:All_Users') #update this to home once it's created
 
 
-# class login_view(auth_views.LoginView):
-#     form_class = LoginForm
-#     template_name = 'registration/login.html'
-
-
-def login_request(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            email= form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user = authenticate(email=email, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
-    return render(request=request,
-                  template_name="users/login.html",
-                  context={"form": form})
-    user = CustomUser.objects.filter(profile = request.user)
-    return render(request, '', {})
-
-
-
 def create_profile(request):
     form = ProfileForm(request.POST or None)
     if form.is_valid():
@@ -197,3 +180,5 @@ def login_request(request):
     return render(request=request,
                   template_name="users/login.html",
                   context={"form": form})
+
+

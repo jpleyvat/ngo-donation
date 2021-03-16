@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+<<<<<<< HEAD
 {% block title %} Register User {% endblock %}
 {% load crispy_forms_tags %}
 
@@ -14,4 +15,34 @@
 </div>
 
 </form>
+=======
+{% block title %} Create User {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div style="float: right; width:35%;
+            height:200px;
+            position: fixed;
+            top: 30%;
+            left: 40%;
+            margin-top: -100px;
+            margin-left: -100px; ">
+<form method="post" >
+  <h1 style="text-align: center"> Create User </h1>
+
+  {% csrf_token %}
+  {{form|crispy}}
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="submit" class="btn btn-info"style="margin-right:2%;">Save</button>
+    <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
+</div>
+
+</form>
+
+
+</div>
+
+
+>>>>>>> UserAddition
 {% endblock %}

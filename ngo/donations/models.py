@@ -64,9 +64,6 @@ class Donation(models.Model):
     def __str__(self):
         return str(self.donation_id)
 
-    
-
-
     class Meta:
         '''Meta class.'''
         ordering = ['-date']

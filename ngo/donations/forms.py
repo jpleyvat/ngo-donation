@@ -5,7 +5,6 @@ from django import forms
 from users.models import Profile
 
 
-
 class ProfileForm(forms.ModelForm):
     '''Profile form.'''
 
@@ -14,4 +13,3 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'
         exclude = ['bio']
-
