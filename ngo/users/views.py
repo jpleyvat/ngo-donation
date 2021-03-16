@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import views as auth_views
 from django.views import generic
 
 #permission imports
@@ -15,7 +12,7 @@ from django.utils.decorators import method_decorator
 
 
 #forms, models and views imports
-from .forms import CustomUserForm, UpdateCustomUserForm, ProfileForm, UpdateProfile, LoginForm
+from .forms import CustomUserForm, UpdateCustomUserForm, ProfileForm, UpdateProfile, LoginForm, RegistrationForm
 from .models import CustomUser, Profile
 from django.views.generic import (
     DeleteView,
@@ -24,12 +21,8 @@ from django.views.generic import (
 )
 
 
-
-
-
 # ---------------------------- Create, Update, Delete, Users ---------- #
     #use the decorator to only let the admin access user management
-@user_passes_test(lambda u:u.is_staff, login_url=reverse_lazy('home'))
 def create_user(request):
     form = CustomUserForm(request.POST or None)
     if form.is_valid():
@@ -40,13 +33,24 @@ def create_user(request):
     }
     return render(request, "UserTemps/create_user.html", context)
 
+def register_user(request):
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('home'))
+    context = {
+        'form': form
+    }
+    return render(request, "registration/register.html", context)
+
+
 class RegisterView(generic.CreateView):
     form_class = CustomUserForm
     template_name = 'UserTemps/create_user.html'
     success_url = reverse_lazy('home')
 
 # @method_decorator(login_required, name='users.views.UserUpdateView')
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(UpdateView):
     model = CustomUser
     template_name = 'UserTemps/update_user.html'
     fields = [
@@ -59,9 +63,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 # @method_decorator(login_required, name='users.views.UsersListView')
-class UsersListView(PermissionRequiredMixin, ListView):
-    permission_required = 'is_staff'
-    redirect_field_name = '/'
+class UsersListView(ListView):
     model = CustomUser
     paginate_by = 100
     context_object_name = 'users_list'
@@ -81,68 +83,6 @@ class delete_user(DeleteView):
 def get_profile(request):
     user = CustomUser.objects.filter(profile = request.user)
     return render(request, '', {})
-
-
-
-def create_profile(request):
-    form = ProfileForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('users:All_Users'))
-    context = {
-        'form': form
-    }
-
-    return render(request, "UserTemps/create_profile.html", context)
-
-
-
-class ProfileUpdateView(UpdateView):
-    model = Profile
-    template_name = 'UserTemps/update_profile.html'
-    fields = [
-        'bio',
-        'location',
-        'birth_date',
-        'cma_num',
-        'phone',
-        'addressLineOne',
-        'addressLineTwo',
-        'city',
-        'state',
-        'zip_code',
-        'country',
-        'urbanization',
-    ]
-    success_url =  reverse_lazy('users:All_Users') #update this to home once it's created
-
-
-# class login_view(auth_views.LoginView):
-#     form_class = LoginForm
-#     template_name = 'registration/login.html'
-
-
-def login_request(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            email= form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user = authenticate(email=email, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
-    return render(request=request,
-                  template_name="users/login.html",
-                  context={"form": form})
-    user = CustomUser.objects.filter(profile = request.user)
-    return render(request, '', {})
-
 
 
 def create_profile(request):
@@ -179,6 +119,8 @@ class ProfileUpdateView(UpdateView):
 
 
 
+
+
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -197,3 +139,5 @@ def login_request(request):
     return render(request=request,
                   template_name="users/login.html",
                   context={"form": form})
+
+
