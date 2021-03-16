@@ -8,6 +8,10 @@ from rest_framework.views import APIView
 from .models import Payment
 from cart.cart import Cart 
 
+def index(request):
+    return render(request, 'payment/index.html')
+
+
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':

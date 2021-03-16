@@ -25,20 +25,20 @@ class Cart(object):
             item['total_price'] = item['amount'] * item['quantity']
             yield item
 
-    def add(self,product,quantity=1,update_quantity=False):
-        product_id = str(product.id)
-        if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0, 'amount' : str(product.amount)}
+    def add(self,donation,quantity=1,update_quantity=False):
+        donation_id = str(donation.id)
+        if donation_id not in self.cart:
+            self.cart[donation_id] = {'quantity': 0, 'amount' : str(donation.amount)}
         if update_quantity:
-            self.cart[product_id]['quantity'] = quantity
+            self.cart[donation_id]['quantity'] = quantity
         else:
-            self.cart[product_id]['quantity'] += quantity
+            self.cart[donation_id]['quantity'] += quantity
         self.save()
 
-    def remove(self,product):
-        product_id = str(product.id)
-        if product_id in self.cart:
-            del self.cart[product_id]
+    def remove(self,donation):
+        donation_id = str(donation.id)
+        if donation_id in self.cart:
+            del self.cart[donation_id]
             self.save()
 
     def save(self):
