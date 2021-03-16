@@ -38,7 +38,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1']
 
 # LOGIN_REDIRECT_URL = '/products'
-LOGIN_URL = '/admin'
+LOGIN_URL = '/users/login'
 
 # Application definition
 

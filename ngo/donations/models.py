@@ -17,6 +17,23 @@ class Charity(models.Model):
     charity_id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='donations/%Y/%m/%d',blank=True)
+    active = models.BooleanField(default=True)
+    donations = models.ManyToManyField('Donation', related_name='+', blank=True)
+
+    def save(self, *args, **kwargs):
+        '''Sets unique ID'''
+        if not self.charity_id:
+            self.charity_id = get_id()
+
+        super().save(*args, **kwargs)
+
+    @property
+    def raised(self):
+        raised = 0
+        for donation in self.donations.all():
+            raised += donation.amount
+        return raised
+
     def __str__(self):
         return str(self.name)
 
@@ -30,7 +47,8 @@ class Charity(models.Model):
 class Donation(models.Model):
     '''Donations models.'''
     donation_id = models.IntegerField(primary_key=True, editable=False, default=0)
-    date = models.DateField(auto_created=True,auto_now=True)
+    charity = models.ForeignKey(Charity, on_delete=models.DO_NOTHING)
+    date = models.DateField(auto_created=True, auto_now=True)
     amount = models.IntegerField(blank=False, null=False)
     completed = models.BooleanField(default=False,auto_created=True,editable=False)
     profile = models.ForeignKey(Profile, on_delete=models.DO_NOTHING, )
