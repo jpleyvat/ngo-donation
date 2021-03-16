@@ -14,8 +14,8 @@ urlpatterns = [
     path('charities/create', views.CreateCharity.as_view(), name='create_charity'),
     path('mydonations/', views.ListDonations.as_view(), name='list_my_donations'),
     path('donate/', views.CreateDonation.as_view(), name='create'),
-    path('<int:pk>/mock/', views.mock_payment, name='mock'),
-    path('process-payment/',views.complete_donation, name='process_payment'),
-    path('payment-done/',views.payment_done, name='payment_done'),
-    path('payment-cancelled/',views.payment_canceled,name='payment_cancelled'),
+    path('<int:pk>/process-payment', views.complete_donation, name='mock'),
+    path('<int:pk>/process-payment/payment-done', views.payment_done, name='payment_done'),
+    path('<int:pk>/process-payment/payment-cancelled', views.payment_cancelled, name='payment_cancelled'),
+    
 ]

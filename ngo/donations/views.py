@@ -7,6 +7,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import get_object_or_404,render 
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -148,23 +149,16 @@ def define_user_and_profile(instance):
     if instance.user.profile:
         instance.profile = instance.user.profile
 
-@csrf_exempt
-def payment_done(request):
-    return render(request,'payment/done.html')
-
-@csrf_exempt
-def payment_canceled(request):
-    return render(request,'payment/canceled.html')
 
 
-def complete_donation(request,primary_key):
+def complete_donation(request,pk):
     '''Completes a donation'''
-    profile_id = primary_key
+    profile_id = pk
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
     donation_id = donation.donation_id
     charity = Charity.objects.get(charity_id=donation.charity.charity_id)
 
-    donation_obj = get_object_or_404(Donation,id=donation_id)
+    donation_obj = get_object_or_404(Donation,donation_id=donation_id)
     host = request.get_host()
     paypal_dict = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
@@ -173,8 +167,8 @@ def complete_donation(request,primary_key):
         'invoice': str(donation_id),
         'currency_code': 'USD',
         'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
-        'return_url': 'http://{}{}'.format(host,reverse('payment:done')),
-        'cancel_return': 'http://{}{}'.format(host,reverse('payment:canceled')),
+        'return_url': 'http://{}{}'.format(host,reverse('donations:payment_done', kwargs={'pk': pk})),
+        'cancel_return': 'http://{}{}'.format(host,reverse('donations:payment_cancelled',kwargs={'pk':pk})),
     }
     donation.completed = True
     donation.save()
@@ -184,9 +178,16 @@ def complete_donation(request,primary_key):
     charity.save()
 
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request,'payment/process.html', {'donation': donation_obj, 'form': form})
+    return render(request,'donations/process.html', {'donation': donation_obj, 'form': form})
 
 
+@csrf_exempt
+def payment_done(request):
+    return render(request,'donations/done.html')
+
+@csrf_exempt
+def payment_cancelled(request):
+    return render(request,'donations/cancelled.html')
 
 
 
