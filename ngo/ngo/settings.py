@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'extra_views',
     'crispy_forms',
     'paypal.standard.ipn',
-    'payment',
     'profiles',
 
 ]
@@ -167,5 +166,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
 #django-paypal settings
-PAYPAL_RECEIVER_EMAIL = 'jackson2k@yahoo.com'
+PAYPAL_RECEIVER_EMAIL = 'sb-og2ka5432577@business.example.com'
 PAYPAL_TEST = True 

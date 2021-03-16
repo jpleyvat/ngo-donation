@@ -7,6 +7,10 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from decimal import Decimal
 
 # Django REST Framework
 from rest_framework.response import Response
@@ -134,7 +138,7 @@ class CreateDonation(CreateWithInlinesView):
 @renderer_classes([TemplateHTMLRenderer])
 def mock_payment(request, **kwargs):
     '''Mock payment.'''
-    complete_donation(kwargs['pk'])
+    complete_donation(request,kwargs['pk'])
     return Response({'status': '200'}, template_name='donations/mock.html')
 
 def define_user_and_profile(instance):
@@ -143,17 +147,45 @@ def define_user_and_profile(instance):
     if instance.user.profile:
         instance.profile = instance.user.profile
 
-def complete_donation(primary_key):
+@csrf_exempt
+def payment_done(request):
+    return render(request,'payment/done.html')
+
+@csrf_exempt
+def payment_canceled(request):
+    return render(request,'payment/canceled.html')
+
+
+def complete_donation(request,primary_key):
     '''Completes a donation'''
     profile_id = primary_key
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
     donation_id = donation.donation_id
     charity = Charity.objects.get(charity_id=donation.charity.charity_id)
 
-
+    donation_obj = get_object_or_404(Donation,id=donation_id)
+    host = request.get_host()
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': '%.2f' % Decimal(donation_obj.amount),
+        'item_name': 'Order {}'.format(donation_obj.charity),
+        'invoice': str(donation_id),
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,reverse('payment:done')),
+        'cancel_return': 'http://{}{}'.format(host,reverse('payment:canceled')),
+    }
     donation.completed = True
     donation.save()
     charity.donations.add(donation)
     # charity.donations.add(Donation.objects.get(donation_id=donation_id))
     print(charity.donations.all())
     charity.save()
+
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request,'payment/process.html', {'donation': donation_obj, 'form': form})
+
+
+
+
+
