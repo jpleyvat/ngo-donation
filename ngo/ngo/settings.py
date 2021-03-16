@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'users',
     'extra_views',
     'crispy_forms',
-    'paypal.standard.ipn',
     'payment',
     'profiles',
     'cart',
@@ -162,10 +161,6 @@ AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable em
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-#django-paypal settings 
-PAYPAL_RECEIVER_EMAIL = 'jackson2k@yahoo.com'
-PAYPAL_TEST = True 
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
