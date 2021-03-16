@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<title>NGO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <link rel="stylesheet" href="{% static 'test_design.css' %}" type="text/css">
+
+</head>
+<body>
+  <div class="navbar">
+  <a class = "nav-link" href = "{% url 'home'%} " >Home</a>
+  <a href="#news">News</a>
+  <div class="dropdown">
+      <button class="dropbtn"> {% if user.is_authenticated %}{{request.user.email}} {%else%} Sigin/account {% endif%}
+           <i class="fa fa-caret-down"></i>
+      </button>
+
+    <div class="dropdown-content">
+        <!-- Login/Register -->
+        {% if user.is_authenticated %}
+            <a href="#">Account</a>
+            <a href = "{% url 'profile:update' request.user.profile.profile_id%}">My profile</a>
+            <a href = "{% url 'donations:list_my_donations'%}">Order History</a> <!-- Donations the user made -->
+            <a class = "nav-link" href = "{% url 'logout'%} " >logout</a>
+        {% else %}
+            <a href="#">Account</a>
+            <a href = "#">My profile</a>
+            <a href="#">Order History</a>   <!-- Donations the user made -->
+            <a class = "nav-link" href = "{% url 'login'%}">login</a>
+        {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="side">
+<div class="sidenav">
+       <!-- Staff Access Only! -->
+        {% if user.is_authenticated %}
+        <input type="checkbox" id="title1" />
+        {% if request.user.is_staff %}
+        <label for="title1">Admin Panel</label>
+       <div class="content">
+         <ul>
+             <li>
+              <a href = "{% url 'users:All_Users'%}">Users Management</a>
+             </li>
+         </ul>
+            <ul>
+             <li>
+               <a href = "{% url 'donations:list'%}">Donations Management</a>
+             </li>
+         </ul>
+         {%endif%}
+</div>
+
+       <input type="checkbox" id="title2" />
+       <label for="title2">Donations</label>
+
+       <div class="content">
+        <ul>
+             <li>
+               <a href = "{% url 'donations:create'%}">Donate</a>
+             </li>
+         </ul>
+            <ul>
+             <li>
+               <a href = "{% url 'donations:list_my_donations'%}">My Donations</a>
+             </li>
+         </ul>
+       </div>
+
+     {%endif%}
+
+
+  </div>
+
+  </div>
+  <div class="main">
+      {% block content %}
+
+
+      {% endblock content %}
+  </div>
+</div>
+
+
+
+</body>
+</html>

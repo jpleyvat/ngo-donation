@@ -1,15 +1,39 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% extends "Home.html" %}
+{% load static %}
 {% block content %}
+{% load crispy_forms_tags %}
 
-
-
+<head>
+      <meta charset="UTF-8">
+    <title>NGO Donations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css">
+   <link rel="stylesheet" href="{% static 'user_table.css' %}" type="text/css">
+</head>
+ <!-- move this style to a css file  -->
+<div style="float: right; width:35%;
+            height:200px;
+            position: fixed;
+            top: 30%;
+            left: 40%;
+            margin-top: -100px;
+            margin-left: -100px; ">
+    <h1 style="text-align: center">Update User Info </h1>
 <form method="post" >
     {% csrf_token %}
     {{form|crispy}}
     <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="submit" class="btn btn-info">Save</button>
+        <button type="submit" class="btn btn-info" style="margin-right:2%;">Save</button>
         <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
     </div>
 </form>
+
+</div>
+
 {% endblock %}
