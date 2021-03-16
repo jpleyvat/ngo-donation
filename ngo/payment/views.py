@@ -1,51 +1,45 @@
-from django.shortcuts import render,redirect
+from decimal import Decimal 
+from django.conf import settings 
 from django.core.urlresolvers import reverse 
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render,get_object_or_404
+from paypal.standard.forms import PayPalPaymentsForm
 
-from rest_framework.views import APIView
 from .models import Payment
-from cart.cart import Cart 
+from donations.models import Donation,Charity 
+from django.views.decorators.csrf import csrf_exempt
 
-def index(request):
-    return render(request, 'payment/index.html')
+@csrf_exempt
+def payment_done(request):
+    return render(request,'payment/done.html')
 
-
-def order_create(request):
-    cart = Cart(request)
-    if request.method == 'POST':
-        form = OrderCreateForm(request.POST)
-        if form.is_valid():
-            order = form.save()
-            for item in cart:
-                
+@csrf_exempt
+def payment_canceled(request):
+    return render(request,'payment/canceled.html')
 
 
+def payment_process(request):
+    
+    charity_id = request.session.get('charity_id')
+    charity_obj = get_object_or_404(Charity,id=charity_id)
+    host = request.get_host()
+    donations_inside_charity = charity_obj.donations.all()
+    for o in donations_inside_charity:
+        if o.completed == False:
+            paypal_dict = {
+                'business': settings.PAYPAL_RECEIVER_EMAIL,
+                'amount': '%.2f' % Decimal(o.amount),
+                'item_name': 'Order {}'.format(donations_inside_charity),
+                'invoice': str(o.donation_id), 
+                'currency_code': 'USD',
+                'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
+                'return_url': 'http://{}{}'.format(host,reverse('payment:done')),
+                'cancel_return': 'http://{}{}'.format(host,reverse('payment:canceled')),
+            }
+        form = PayPalPaymentsForm(initial=paypal_dict)
+        return render(request, 'payment/process.html',{'charity':charity_obj, 'form':form})
+
+  
 
 
 
 
-                
-class PaymentManagement(LoginRequiredMixin,ListView):
-    model = Payment
-    template_name = 'donations/payment.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-
-        payments = Payment.objects.all()
-        if(user.is_staff()):
-            print("something happened")
-        else:
-            xyz = Payment.objects.filter.filter(pk=user._id)
-            print(xyz)
-
-        context['payments'] = payments
-        return context
-
-class MakePayment(LoginRequiredMixin,CreateView):
-    model = Payment
-    fields = ['payment_id']
-# Create your views here.

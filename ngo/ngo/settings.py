@@ -56,9 +56,10 @@ INSTALLED_APPS = [
     'users',
     'extra_views',
     'crispy_forms',
+    'paypal.standard.ipn',
     'payment',
     'profiles',
-    'cart',
+
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -164,4 +165,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
-CART_SESSION_ID = 'cart'
+
+#django-paypal settings
+PAYPAL_RECEIVER_EMAIL = 'jackson2k@yahoo.com'
+PAYPAL_TEST = True 
