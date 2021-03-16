@@ -2,7 +2,6 @@
 
 # Django
 from django.urls import reverse
-<<<<<<< HEAD
 from django.http import HttpResponseRedirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
@@ -12,10 +11,6 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from decimal import Decimal
-=======
-from django.views.generic.list import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
->>>>>>> UserAddition
 
 # Django REST Framework
 from rest_framework.response import Response
@@ -27,7 +22,6 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 # Models
 from users.models import Profile
-<<<<<<< HEAD
 from .models import Donation, Charity
 
 # Forms
@@ -71,12 +65,6 @@ class CreateCharity(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     model = Charity
     fields = ['name', 'active']
     template_name = 'charities/create.html'
-=======
-from .models import Donation
-
-# Forms
-from .forms import ProfileForm
->>>>>>> UserAddition
 
 # Create your views here.
 class ListDonations(LoginRequiredMixin, ListView):
@@ -85,11 +73,7 @@ class ListDonations(LoginRequiredMixin, ListView):
     template_name = 'donations/list.html'
 
     def get_context_data(self, **kwargs):
-<<<<<<< HEAD
-        '''Gets context.'''
-=======
         
->>>>>>> UserAddition
         user = self.request.user
         context = super().get_context_data(**kwargs)
         if self.request.get_full_path() == '/donations/mydonations/':

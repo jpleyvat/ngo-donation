@@ -56,13 +56,8 @@ INSTALLED_APPS = [
     'users',
     'extra_views',
     'crispy_forms',
-<<<<<<< HEAD
     'paypal.standard.ipn',
     'profiles',
-=======
-    'profiles',
-]
->>>>>>> UserAddition
 
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -163,7 +158,6 @@ AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend'] #add this to enable em
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-<<<<<<< HEAD
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
@@ -171,5 +165,3 @@ MEDIA_URL = '/media/'
 #django-paypal settings
 PAYPAL_RECEIVER_EMAIL = 'sb-og2ka5432577@business.example.com'
 PAYPAL_TEST = True 
-=======
->>>>>>> UserAddition
