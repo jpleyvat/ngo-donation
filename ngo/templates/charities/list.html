@@ -1,11 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'Home.html' %}
 {% block title %}Donations Management{% endblock title %}
-
-
+{% load static %}
 {% block content %}
-   <section>
-    <h1 style="text-align: center "> Charities </h1>
-        <table class="user_table table-bordered" width="90%" >
+<head>
+</head>
+   <section style="float: right; width:60%;
+            height:200px;
+            position: fixed;
+            top: 20%;
+            left: 30%;
+            margin-top: -100px;
+            margin-left: -100px;">
+    <h1 style="text-align: center; margin-bottom:20px; " > Charities </h1>
+        <table class="user_table table-bordered" width="90%">
         {% if request.get_full_path == '/donations/charities/'%}
             {% if user.is_authenticated %}
                 <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
