@@ -24,8 +24,10 @@ TEMPLATE_DIR = path.join(BASE_DIR, 'templates')
 # Initialize environment variables
 
 # Production environment variables
-dotenv_path = join(BASE_DIR.parent, '.env')
+# dotenv_path = join(BASE_DIR.parent, '.env')
+dotenv_path = join(BASE_DIR.parent, '.envs', '.production')
 load_dotenv(dotenv_path)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -54,7 +56,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'ipdb',
     'widget_tweaks',
     'donations',
     'users',
