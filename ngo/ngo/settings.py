@@ -64,7 +64,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'paypal.standard.ipn',
     'profiles',
+<<<<<<< HEAD
     'storages',
+=======
+    'paypal.standard.ipn',
+>>>>>>> NewBranch
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -178,9 +182,6 @@ AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']  # add this to enable 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_URL = '/media/'
 
 #django-paypal settings
 PAYPAL_RECEIVER_EMAIL = 'sb-og2ka5432577@business.example.com'

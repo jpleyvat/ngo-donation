@@ -12,7 +12,10 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from decimal import Decimal
+<<<<<<< HEAD
 
+=======
+>>>>>>> NewBranch
 # Django REST Framework
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -24,9 +27,13 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 # Models
 from users.models import Profile
 from .models import Donation, Charity
+from users.models import CustomUser
 
 # Forms
 from .forms import ProfileForm
+
+import smtplib,ssl
+
 
 # Create your views here.
 class ListCharities(ListView):
@@ -150,12 +157,22 @@ def define_user_and_profile(instance):
     if instance.user.profile:
         instance.profile = instance.user.profile
 
-
-
 def complete_donation(request,pk):
+
+    smtp_server = 'smtp.gmail.com'
+    port = 465
+
+    sender = 'elchapo123cuhh@gmail.com'
+    password = "PassWord123!"
+    
+    
     '''Completes a donation'''
     profile_id = pk
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
+    current_users = CustomUser.objects.filter(profile=profile_id).get(is_active=True)
+    current_user_id = current_users.user_id
+    current_user_obj = CustomUser.objects.get(user_id=current_user_id)
+
     donation_id = donation.donation_id
     charity = Charity.objects.get(charity_id=donation.charity.charity_id)
 
@@ -171,16 +188,24 @@ def complete_donation(request,pk):
         'return_url': 'http://{}{}'.format(host,reverse('donations:payment_done', kwargs={'pk': pk})),
         'cancel_return': 'http://{}{}'.format(host,reverse('donations:payment_cancelled',kwargs={'pk':pk})),
     }
+    #sending email
+    receiver = current_user_obj.email
+    print("Email: %s" % receiver)
+    message = "Subject: Donation completed\n\nThank you for sending $%.2f! my dood!" % Decimal(donation_obj.amount)
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server,port,context=context) as server:
+        server.login(sender,password)
+        server.sendmail(sender,receiver,message)
+
+
     donation.completed = True
     donation.save()
     charity.donations.add(donation)
-    # charity.donations.add(Donation.objects.get(donation_id=donation_id))
     print(charity.donations.all())
     charity.save()
 
     form = PayPalPaymentsForm(initial=paypal_dict)
     return render(request,'donations/process.html', {'donation': donation_obj, 'form': form})
-
 
 @csrf_exempt
 def payment_done(request):
@@ -189,6 +214,4 @@ def payment_done(request):
 @csrf_exempt
 def payment_cancelled(request):
     return render(request,'donations/cancelled.html')
-
-
 
