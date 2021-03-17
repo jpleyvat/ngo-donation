@@ -16,7 +16,7 @@
         {% if request.get_full_path == '/donations/charities/'%}
             {% if user.is_authenticated %}
                 <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
-                        <a href = "{% url 'donations:create'%}" class="btn btn-info ">Add</a>
+                        <a href = "{% url 'donations:create_charity'%}" class="btn btn-info ">Add</a>
                    </div>
                 </thead>
             {% endif %}
@@ -36,9 +36,9 @@
 
                 <td>
                     {% if charity.active == True %}
-                        <span class="badge rounded-pill bg-primary">yes</span>
+                        <span class="badge rounded-pill bg-primary">Yes</span>
                     {%else %}
-                        <span class="badge rounded-pill bg-danger">no</span>
+                        <span class="badge rounded-pill bg-secondary">No</span>
                     {% endif%}
                 </td>
                 <td>
