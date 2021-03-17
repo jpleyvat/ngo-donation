@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Donations Management{% endblock title %}
+{% block content %}
+<h1>Management</h1>
+<div>
+    <ul>
+        {% for donation in donations%}
+            <li>{{ donation.amount }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}

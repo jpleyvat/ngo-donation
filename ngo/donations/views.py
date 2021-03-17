@@ -7,7 +7,11 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
+from django.shortcuts import get_object_or_404,render 
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from decimal import Decimal
 # Django REST Framework
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -58,6 +62,7 @@ class ListCharities(ListView):
 class CreateCharity(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     permission_required = 'is_staff'
     redirect_field_name = '/'
+    success_url = '/'
     model = Charity
     fields = ['name', 'active']
     template_name = 'charities/create.html'
@@ -143,15 +148,52 @@ def define_user_and_profile(instance):
     if instance.user.profile:
         instance.profile = instance.user.profile
 
-def complete_donation(primary_key):
+def complete_donation(request,pk):
     '''Completes a donation'''
-    profile_id = primary_key
+    profile_id = pk
     donation = Donation.objects.filter(profile=profile_id).get(completed=False)
     donation_id = donation.donation_id
     charity = Charity.objects.get(charity_id=donation.charity.charity_id)
 
-
+    donation_obj = get_object_or_404(Donation,donation_id=donation_id)
+    host = request.get_host()
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': '%.2f' % Decimal(donation_obj.amount),
+        'item_name': 'Order {}'.format(donation_obj.charity),
+        'invoice': str(donation_id),
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,reverse('donations:payment_done', kwargs={'pk': pk})),
+        'cancel_return': 'http://{}{}'.format(host,reverse('donations:payment_cancelled',kwargs={'pk':pk})),
+    }
     donation.completed = True
     donation.save()
     charity.donations.add(donation)
+    # charity.donations.add(Donation.objects.get(donation_id=donation_id))
+    print(charity.donations.all())
     charity.save()
+
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request,'donations/process.html', {'donation': donation_obj, 'form': form})
+
+@csrf_exempt
+def payment_done(request):
+    return render(request,'donations/done.html')
+
+@csrf_exempt
+def payment_cancelled(request):
+    return render(request,'donations/cancelled.html')
+
+#def complete_donation(primary_key):
+    '''Completes a donation'''
+    #profile_id = primary_key
+    #donation = Donation.objects.filter(profile=profile_id).get(completed=False)
+    #donation_id = donation.donation_id
+    #charity = Charity.objects.get(charity_id=donation.charity.charity_id)
+
+
+    #donation.completed = True
+    #donation.save()
+    #charity.donations.add(donation)
+    #charity.save()

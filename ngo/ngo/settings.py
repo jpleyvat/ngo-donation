@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'extra_views',
     'crispy_forms',
     'profiles',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,7 @@ AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']  # add this to enable 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#django-paypal settings
+PAYPAL_RECEIVER_EMAIL = 'sb-og2ka5432577@business.example.com'
+PAYPAL_TEST = True 
