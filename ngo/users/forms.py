@@ -88,6 +88,7 @@ class RegistrationForm(forms.ModelForm):
             'first_name',
             'last_name',
             'email',
+            'password',
         ]
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),

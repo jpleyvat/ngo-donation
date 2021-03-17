@@ -22,7 +22,7 @@ class CustomUser(AbstractUser):
 
     is_active = models.BooleanField(_('is active'), default = True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add = True)
-    password = models.CharField(max_length = 100, editable=False, default = '')
+    password = models.CharField(max_length = 100, editable=True, default = '')
     profile = models.OneToOneField(Profile, unique=True, on_delete=models.DO_NOTHING, null=True)
 
     objects = UserManager()
