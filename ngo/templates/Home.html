@@ -20,14 +20,15 @@
     <div class="dropdown-content">
         <!-- Login/Register -->
         {% if user.is_authenticated %}
-            <a href="#">Account</a>
+<!--             <a href="#">Account</a> -->
             <a href = "{% url 'profile:update' request.user.profile.profile_id%}">My profile</a>
             <a href = "{% url 'donations:list_my_donations'%}">Order History</a> <!-- Donations the user made -->
             <a class = "nav-link" href = "{% url 'logout'%} " >logout</a>
         {% else %}
-            <a href="#">Account</a>
-            <a href = "#">My profile</a>
-            <a href="#">Order History</a>   <!-- Donations the user made -->
+          <!-- Ensure that the user is logged in to see account related info -->
+<!--             <a href=  "{% url 'login'%}" Account</a> --> 
+            <a href = "{% url 'login'%}">My profile</a>
+            <a href="{% url 'login'%}">Order History</a>   <!-- Donations the user made -->
             <a class = "nav-link" href = "{% url 'login'%}">login</a>
         {% endif %}
 
