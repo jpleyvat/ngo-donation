@@ -12,7 +12,9 @@
             left: 40%;
             margin-top: -100px;
             margin-left: -100px; ">
-           {{ form|crispy }}
+
+                {{ form|crispy }}
+
             <div>
                 {% for formset in inlines %}
                     {{ formset|crispy }}

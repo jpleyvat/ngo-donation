@@ -1,4 +1,4 @@
-'''Models tests.'''
+''''Models tests.'''
 
 # Django
 from django.test import TestCase

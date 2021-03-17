@@ -10,13 +10,14 @@
           crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css">
    </head>
-   <section>
+   <section >
     <h1 style="text-align: center; margin-bottom:20px; "> User Management </h1>
         <table class="user_table table-bordered" width=60%; style="float: right; margin-top:5%;">
         <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
-                <a href = "{% url 'users:Create_User'%}" class="btn btn-info " style="margin-left:10%">Add User </a>
+                <a href = "{% url 'users:Create_User'%}" class="btn btn-info " style="margin-right:20%">Add User </a>
                </div>
         </thead>
+
         <tr>
             <th> First Name </th>
             <th> Last Name </th>

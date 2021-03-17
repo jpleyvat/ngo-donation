@@ -11,7 +11,7 @@
 <body>
   <div class="navbar">
   <a class = "nav-link" href = "{% url 'home'%} " >Home</a>
-  <!--  <a href="#news">News</a>-->
+<!--  <a href="#news">News</a>-->
   <div class="dropdown">
       <button class="dropbtn"> {% if user.is_authenticated %}{{request.user.email}} {%else%} Sigin/account {% endif%}
            <i class="fa fa-caret-down"></i>
@@ -30,26 +30,10 @@
             <a href="#">Order History</a>   <!-- Donations the user made -->
             <a class = "nav-link" href = "{% url 'login'%}">login</a>
         {% endif %}
-        <div class="dropdown-content">
-          <!-- Login/Register -->
-          {% if user.is_authenticated %}
-          <a href="#">Account</a>
-          <a href="{% url 'profile:update' request.user.profile.profile_id%}"
-            >My profile</a
-          >
-          <a href="{% url 'donations:list_my_donations'%}">Order History</a>
-          <!-- Donations the user made -->
-          <a class="nav-link" href="{% url 'logout'%} ">logout</a>
-          {% else %}
-          <a href="#">Account</a>
-          <a href="#">My profile</a>
-          <a href="#">Order History</a>
-          <!-- Donations the user made -->
-          <a class="nav-link" href="{% url 'login'%}">login</a>
-          {% endif %}
-        </div>
-      </div>
+
     </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="side">
@@ -73,7 +57,7 @@
          </ul>
        </div>
        {% endif %}
-                       <!-- Staff Access Only! -->
+       <!-- Staff Access Only! -->
         {% if user.is_authenticated  and  request.user.is_staff  %}
         <input type="checkbox" id="title1" />
         <label for="title1" style="font-size: 30px;">Admin Panel</label>
@@ -89,7 +73,7 @@
              </li>
          </ul>
        </div>
-      {%endif%}
+
        <input type="checkbox" id="title2" />
        <label for="title2" style="font-size: 30px; ">Donations</label>
 
@@ -106,7 +90,7 @@
          </ul>
        </div>
   </div>
-
+ {%endif%}
   </div>
   <div class="main">
       {% block content %}
@@ -115,5 +99,8 @@
       {% endblock content %}
   </div>
 </div>
+
+
+
 </body>
 </html>
