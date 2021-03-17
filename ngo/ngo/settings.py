@@ -24,7 +24,8 @@ TEMPLATE_DIR = path.join(BASE_DIR, 'templates')
 # Initialize environment variables
 
 # Production environment variables
-dotenv_path = join(BASE_DIR.parent, '.env')
+# dotenv_path = join(BASE_DIR.parent, '.env')
+dotenv_path = join(BASE_DIR.parent, '.envs', '.production')
 load_dotenv(dotenv_path)
 
 # Quick-start development settings - unsuitable for production
@@ -54,7 +55,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'ipdb',
     'widget_tweaks',
     'donations',
     'users',
@@ -95,26 +95,26 @@ WSGI_APPLICATION = 'ngo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#     'default':{
-#         'ENGINE': 'mysql.connector.django',
-#         'OPTIONS': {
-#             'database': getenv('DB_NAME'),
-#             'user': getenv('DB_USER'),
-#             'password': getenv('DB_PASSWORD'),
-#             'host': getenv('DB_HOST'),
-#             'port': getenv('DB_PORT'),
-#             'raise_on_warnings': True
-#         }
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default':{
+        'ENGINE': 'mysql.connector.django',
+        'OPTIONS': {
+            'database': getenv('DB_NAME'),
+            'user': getenv('DB_USER'),
+            'password': getenv('DB_PASSWORD'),
+            'host': getenv('DB_HOST'),
+            'port': getenv('DB_PORT'),
+            'raise_on_warnings': True
+        }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
