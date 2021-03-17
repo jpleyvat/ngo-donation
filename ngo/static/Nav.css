@@ -19,7 +19,7 @@
 }
 
  /* change the color of the link on mouse-over*/
-.top_nav a: hover{
+.top_nav a.hover{
     background-color: #ddd;
     color: black;
 }
@@ -36,7 +36,7 @@
 }
 
 .top_nav_centered a {
-     float = none;
+     float: none;
      position: absolute;
      top: 4%;
      left: 50%;
