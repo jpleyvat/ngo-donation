@@ -79,7 +79,6 @@ def get_profile(request):
     return render(request, '', {})
 
 
-
 def create_profile(request):
     form = ProfileForm(request.POST or None)
     if form.is_valid():
@@ -90,7 +89,6 @@ def create_profile(request):
     }
 
     return render(request, "UserTemps/create_profile.html", context)
-
 
 class ProfileUpdateView(UpdateView):
     model = Profile
@@ -130,9 +128,7 @@ class ProfileUpdateView(UpdateView):
         'urbanization',
     ]
     success_url =  reverse_lazy('users:home') 
-
-
-
+# ------------------------------------------ login ------------------------------------#
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
