@@ -1,58 +1,32 @@
-{% extends 'Home.html' %}
-{% block title %}Donations Management{% endblock title %}
-{% load static %}
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Create Donations {% endblock title %}
+
 {% block content %}
-<head>
-</head>
-   <section style="float: right; width:60%;
-            height:200px;
+    <form class="form" method="post" action="{% url 'donations:create' %}" style="position: absolute;">{% csrf_token %}
+        <div class="form"style="float: right; width:35%; overflow: auto;
+            height:100%;
             position: fixed;
-            top: 20%;
-            left: 30%;
+            top: 10%;
+            left: 40%;
             margin-top: -100px;
-            margin-left: -100px;">
-    <h1 style="text-align: center; margin-bottom:20px; " > Charities </h1>
-        <table class="user_table table-bordered" width="90%">
-        {% if request.get_full_path == '/donations/charities/'%}
-            {% if user.is_authenticated %}
-                <thead> <div style ="width:15%; float: right; margin-bottom:10px;" >
-                        <a href = "{% url 'donations:create'%}" class="btn btn-info ">Add</a>
-                   </div>
-                </thead>
-            {% endif %}
-        {% endif %}
-        <tr>
-            <th> Name </th>
-            <th> Donations Made </th>
-            <th> Raised Money </th>
-            <th> Active </th>
-            <th> Donate </th>
-        </tr>
-        {% for charity in charities %}
-            <tr>
-                <td>{{ charity.name }}</td>
-                <td>{{ charity.donations.all|length}}</td>
-                <td>$ {{ charity.raised }}</td>
+            margin-left: -100px; ">
+            <h1 style="text-align: center;"> Donate </h1>
+            <div>
+                {{ form|crispy }}
+            </div>
+            <div >
+                {% for formset in inlines %}
+                    {{ formset|crispy }}
+                {% endfor %}
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-top:2% ">
+                    <button type="submit" class="btn btn-info" style="margin-right:5%; ">Donate</button>
+                    <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
+                </div>
 
-                <td>
-                    {% if charity.active == True %}
-                        <span class="badge rounded-pill bg-primary">yes</span>
-                    {%else %}
-                        <span class="badge rounded-pill bg-danger">no</span>
-                    {% endif%}
-                </td>
-                <td>
-                {% if request.get_full_path == '/donations/charities/'%}
-                    <a class="btn btn-success" href="{% url 'donations:create'%}">Edit</a>
-                {% else%}
-                    <a class="btn btn-success" href="{% url 'donations:create'%}">Donate</a>
-                {% endif %}
-                </td>
-            </tr>
-       {% endfor %}
+                <!-- <input type="submit" class="btn btn-success" value="Submit" /> -->
+            </div>
+        </div>
+    </form>
 
-        </table>
-
-
-    </section>
 {% endblock content %}

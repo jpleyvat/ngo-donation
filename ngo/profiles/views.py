@@ -21,3 +21,4 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
 
 # Create your views here.
 
+
