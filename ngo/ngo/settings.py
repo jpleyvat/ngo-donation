@@ -10,19 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import os
+from os import path, getenv
+from os.path import join
 from pathlib import Path
-import environ
+from dotenv import load_dotenv
 
-# Environment
-
-# Initialize environment variables
-env = environ.Env()
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIR = path.join(BASE_DIR, 'templates')
+
+# Environment
+# Initialize environment variables
+
+# Production environment variables
+# dotenv_path = join(BASE_DIR.parent, '.env')
+dotenv_path = join(BASE_DIR.parent, '.envs', '.production')
+load_dotenv(dotenv_path)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -31,12 +36,13 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # if env('SECRET_KEY'):
 
 
-SECRET_KEY = 'l3iuj12e(#1n&y*npjox4zjmoz719w^7rgzk45xnw7zfm(cb0h'
+SECRET_KEY = getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [getenv('ALLOWED_HOSTS')]
+ALLOWED_HOSTS.append('ngo-donations-2138237467.us-east-2.elb.amazonaws.com')
 
 # LOGIN_REDIRECT_URL = '/products'
 LOGIN_URL = '/users/login'
@@ -51,13 +57,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'ipdb',
     'widget_tweaks',
     'donations',
     'users',
     'extra_views',
     'crispy_forms',
     'profiles',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -92,13 +98,26 @@ WSGI_APPLICATION = 'ngo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default':{
+        'ENGINE': 'mysql.connector.django',
+        'OPTIONS': {
+            'database': getenv('DB_NAME'),
+            'user': getenv('DB_USER'),
+            'password': getenv('DB_PASSWORD'),
+            'host': getenv('DB_HOST'),
+            'port': getenv('DB_PORT'),
+            'raise_on_warnings': True
+        }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -135,9 +154,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_URL = 'https://ngo-donations.s3.us-east-2.amazonaws.com/'
+
+USE_S3 = getenv('USE_S3') == 'TRUE'
+if USE_S3:
+    STATIC_URL = f'https://ngo-donations.s3.us-east-2.amazonaws.com/static/'
+else:
+    STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    path.join(BASE_DIR, 'static'),
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -150,4 +177,3 @@ AUTH_USER_MODEL = 'users.CustomUser'  #
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']  # add this to enable email login
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
