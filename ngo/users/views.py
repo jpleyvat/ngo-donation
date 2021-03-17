@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import views as auth_views
 from django.views import generic
 
 #permission imports
@@ -25,7 +22,6 @@ from django.views.generic import (
 
 # ---------------------------- Create, Update, Delete, Users ---------- #
     #use the decorator to only let the admin access user management
-@user_passes_test(lambda u:u.is_staff, login_url=reverse_lazy('home'))
 def create_user(request):
     form = CustomUserForm(request.POST or None)
     if form.is_valid():
@@ -53,7 +49,7 @@ class RegisterView(generic.CreateView):
     success_url = reverse_lazy('home')
 
 # @method_decorator(login_required, name='users.views.UserUpdateView')
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(UpdateView):
     model = CustomUser
     template_name = 'UserTemps/update_user.html'
     fields = [
@@ -66,9 +62,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 # @method_decorator(login_required, name='users.views.UsersListView')
-class UsersListView(PermissionRequiredMixin, ListView):
-    permission_required = 'is_staff'
-    redirect_field_name = '/'
+class UsersListView(ListView):
     model = CustomUser
     paginate_by = 100
     context_object_name = 'users_list'
@@ -101,24 +95,6 @@ def create_profile(request):
 
     return render(request, "UserTemps/create_profile.html", context)
 
-class ProfileUpdateView(UpdateView):
-    model = Profile
-    template_name = 'UserTemps/update_profile.html'
-    fields = [
-        'bio',
-        'location',
-        'birth_date',
-        'cma_num',
-        'phone',
-        'addressLineOne',
-        'addressLineTwo',
-        'city',
-        'state',
-        'zip_code',
-        'country',
-        'urbanization',
-    ]
-    success_url =  reverse_lazy('users:All_Users') 
 
 #update this and link it to menu once it's created
 class ProfileUpdateView(UpdateView):
@@ -139,7 +115,11 @@ class ProfileUpdateView(UpdateView):
         'urbanization',
     ]
     success_url =  reverse_lazy('users:home') 
-# ------------------------------------------ login ------------------------------------#
+
+
+
+
+
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
