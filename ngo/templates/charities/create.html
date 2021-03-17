@@ -5,14 +5,21 @@
 
 
 {% block content %}
+ <h1 style="text-align: center; margin:5%;"> Create Charity </h1>
     <form class="form" method="post" action="{% url 'donations:create_charity' %}">{% csrf_token %}
-        <div class="form">
+        <div class="form" style="float: right; width:35%;
+            height:200px;
+            position: fixed;
+            top: 30%;
+            left: 40%;
+            margin-top: -100px;
+            margin-left: -100px; ">
             <div>
                 {{ form|crispy }}
             </div>
             <div>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="submit" class="btn btn-info">Create</button>
+                    <button type="submit" class="btn btn-info"style="margin-right:7%;">Create</button>
                     <a href="{%url 'users:All_Users'%}" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
