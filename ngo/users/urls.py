@@ -7,7 +7,7 @@ from .views import (
     UserUpdateView,
     create_profile,
     login_request,
-    register_user
+    user_registration
 )
 
 app_name = 'users'
@@ -18,7 +18,7 @@ urlpatterns = [
     path('<pk>/updateUser/', UserUpdateView.as_view(), name = 'Update_User'),
     path('allusers/', UsersListView.as_view(), name='All_Users'),
     path('createProfile/', create_profile, name = 'Create_Profile' ),
-    path('register/', register_user, name = 'Register_User'),
+    path('register/', user_registration, name = 'Register_User'),
     path('', include("django.contrib.auth.urls")),
     path('login/', login_request, name= 'login'),
 ]
