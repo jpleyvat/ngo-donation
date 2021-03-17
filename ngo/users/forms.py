@@ -102,3 +102,5 @@ class RegistrationForm(UserCreationForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
 
         }
+
+

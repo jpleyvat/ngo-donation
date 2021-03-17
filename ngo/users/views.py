@@ -112,10 +112,7 @@ class ProfileUpdateView(UpdateView):
         'country',
         'urbanization',
     ]
-    success_url =  reverse_lazy('users:home') 
-
-
-
+    success_url =  reverse_lazy('users:home')
 
 
 def login_request(request):

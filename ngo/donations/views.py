@@ -58,6 +58,7 @@ class ListCharities(ListView):
 class CreateCharity(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     permission_required = 'is_staff'
     redirect_field_name = '/'
+    success_url = '/'
     model = Charity
     fields = ['name', 'active']
     template_name = 'charities/create.html'
