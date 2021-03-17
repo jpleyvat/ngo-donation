@@ -8,8 +8,6 @@ migrations/
 # C extensions
 *.so
 
-settings.py
-
 
 # Distribution / packaging
 migrations/
