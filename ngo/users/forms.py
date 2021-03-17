@@ -85,7 +85,7 @@ class UpdateProfile(forms.ModelForm):
 
 
 #--------------------------- Register User ------------------------#
-class RegistrationForm(forms.ModelForm):
+class RegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = [
@@ -93,12 +93,12 @@ class RegistrationForm(forms.ModelForm):
             'first_name',
             'last_name',
             'email',
+
         ]
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class':'form-control', 'size': '40'}),
+            'username': forms.TextInput(attrs={'class': 'form-control', }),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'size': '40'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'password': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
