@@ -27,7 +27,11 @@ def create_user(request):
     form = CustomUserForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('users:All_Users'))
+        if(request.user.is_authenticated):
+            return HttpResponseRedirect(reverse('users:All_Users'))
+        else:
+            return HttpResponseRedirect(reverse('users:login'))
+
     context = {
         'form': form
     }
@@ -66,6 +70,7 @@ class UsersListView(ListView):
     context_object_name = 'users_list'
     queryset = CustomUser.objects.all()
     template_name = 'UserTemps/users_list_view.html'
+    
 #
 # @method_decorator(login_required(login_url ='users:delete_user'), name = dispatch)
 # @method_decorator(user_passes_test(profile))

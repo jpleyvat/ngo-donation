@@ -50,4 +50,3 @@ def create_user_profile(sender, instance, created, **kwargs):
         profile = Profile.objects.create()
         instance.profile = profile
         instance.save()
-

@@ -9,15 +9,15 @@ class CustomUserForm(UserCreationForm):
         model = CustomUser
         fields = [
             'username',
-            'first_name',
-            'last_name',
+            # 'first_name',
+            # 'last_name',
             'email',
             'is_staff',
         ]
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control',}),
-            'first_name': forms.TextInput(attrs={'class':'form-control', 'size': '40'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            # 'first_name': forms.TextInput(attrs={'class':'form-control', 'size': '40'}),
+            # 'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'is_staff': forms.CheckboxInput(attrs={'class': 'form-control'}),
 
@@ -102,5 +102,3 @@ class RegistrationForm(UserCreationForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
 
         }
-
-
