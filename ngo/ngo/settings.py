@@ -144,7 +144,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = False
 
-
+AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']  # add this to enable email login
 LOGIN_REDIRECT_URL = 'home'

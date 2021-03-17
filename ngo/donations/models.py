@@ -14,11 +14,11 @@ def get_id():
 
 class Charity(models.Model):
     '''Donation types models.'''
-    charity_id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
+    charity_id = models.IntegerField(primary_key=True, auto_created=True, editable=False,default =0)
     name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
     donations = models.ManyToManyField('Donation', related_name='+', blank=True)
-    
+
     def __str__(self):
         return str(self.name)
 
@@ -31,7 +31,7 @@ class Charity(models.Model):
 
 class Donation(models.Model):
     '''Donations models.'''
-    charity = models.ForeignKey(Charity, on_delete=models.CASCADE)
+    charity = models.ForeignKey(Charity, on_delete=models.DO_NOTHING)
     donation_id = models.IntegerField(primary_key=True, editable=False, default=0)
     
     date = models.DateField(auto_created=True, auto_now=True)

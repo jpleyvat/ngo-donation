@@ -64,7 +64,7 @@ class CreateCharity(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     permission_required = 'is_staff'
     redirect_field_name = '/'
     model = Charity
-    fields = ['name', 'active']
+    fields = ['name', 'active','charity_id']
     template_name = 'charities/create.html'
 
 # Create your views here.
