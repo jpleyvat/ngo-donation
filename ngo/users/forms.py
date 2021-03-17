@@ -69,7 +69,6 @@ class ProfileForm(forms.ModelForm):
 
         }
 
-
 class UpdateProfile(forms.ModelForm):
     bio = forms.CharField()
     location = forms.CharField()
