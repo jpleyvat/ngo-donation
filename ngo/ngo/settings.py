@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'extra_views',
     'crispy_forms',
     'profiles',
+    'storages',
 ]
 
 
@@ -158,6 +159,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_URL = 'https://ngo-donations.s3.us-east-2.amazonaws.com/'
+
+USE_S3 = getenv('USE_S3') == 'TRUE'
+if USE_S3:
+    STATIC_URL = f'https://ngo-donations.s3.us-east-2.amazonaws.com/static/'
+else:
+    STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [
     path.join(BASE_DIR, 'static'),
