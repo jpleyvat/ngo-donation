@@ -33,7 +33,8 @@ def create_user(request):
     }
     return render(request, "UserTemps/create_user.html", context)
 
-def register_user(request):
+
+def user_registration(request):
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -44,10 +45,6 @@ def register_user(request):
     return render(request, "registration/register.html", context)
 
 
-class RegisterView(generic.CreateView):
-    form_class = CustomUserForm
-    template_name = 'UserTemps/create_user.html'
-    success_url = reverse_lazy('home')
 
 # @method_decorator(login_required, name='users.views.UserUpdateView')
 class UserUpdateView(UpdateView):
