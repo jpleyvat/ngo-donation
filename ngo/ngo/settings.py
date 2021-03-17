@@ -64,11 +64,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'paypal.standard.ipn',
     'profiles',
-<<<<<<< HEAD
-    'storages',
-=======
     'paypal.standard.ipn',
->>>>>>> NewBranch
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

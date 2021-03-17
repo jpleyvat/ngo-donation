@@ -12,10 +12,6 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from decimal import Decimal
-<<<<<<< HEAD
-
-=======
->>>>>>> NewBranch
 # Django REST Framework
 from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
