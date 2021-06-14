@@ -1,4 +1,4 @@
-'''Donations admin'''
+"""Donations admin"""
 
 # Django.
 from django.contrib import admin

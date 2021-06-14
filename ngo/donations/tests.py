@@ -1,20 +1,23 @@
-''''Models tests.'''
+"""'Models tests."""
 
 # Django
 from django.test import TestCase
 
 # Models
-from .models import (Charity, 
-                     Donation)
+from .models import Charity, Donation
 
 # Create your tests here.
 class CharityTest(TestCase):
-    '''Donation type test.'''
+    """Donation type test."""
+
     def setUp(self):
-        DonationType.objects.create('Dogs')
+        DonationType.objects.create("Dogs")
+
 
 class DonationTest(TestCase):
-    '''Donation test.'''
+    """Donation test."""
+
     def setUp(self):
-        Donation.objects.create(ammount=1000, 
-                                _type=DonationType.objects.get(name='dogs'))
+        Donation.objects.create(
+            ammount=1000, _type=DonationType.objects.get(name="dogs")
+        )

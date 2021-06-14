@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ProfilesConfig(AppConfig):
-    name = 'profiles'
-    label = 'profiles'
+    name = "profiles"
+    label = "profiles"

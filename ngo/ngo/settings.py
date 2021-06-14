@@ -18,14 +18,15 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = path.join(BASE_DIR, 'templates')
+TEMPLATE_DIR = path.join(BASE_DIR, "templates")
 
 # Environment
 # Initialize environment variables
 
 # Production environment variables
 # dotenv_path = join(BASE_DIR.parent, '.env')
-dotenv_path = join(BASE_DIR.parent, '.envs', '.production')
+# dotenv_path = join(BASE_DIR.parent, '.envs', '.production')
+dotenv_path = join(BASE_DIR.parent, ".envs", ".development")
 load_dotenv(dotenv_path)
 
 
@@ -36,113 +37,113 @@ load_dotenv(dotenv_path)
 # if env('SECRET_KEY'):
 
 
-SECRET_KEY = getenv('SECRET_KEY')
+SECRET_KEY = getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG')
+DEBUG = getenv("DEBUG")
 
-ALLOWED_HOSTS = [getenv('ALLOWED_HOSTS')]
-ALLOWED_HOSTS.append('ngo-donations-2138237467.us-east-2.elb.amazonaws.com')
+ALLOWED_HOSTS = [getenv("ALLOWED_HOSTS")]
+ALLOWED_HOSTS.append("ngo-donations-2138237467.us-east-2.elb.amazonaws.com")
 
 # LOGIN_REDIRECT_URL = '/products'
-LOGIN_URL = '/users/login'
+LOGIN_URL = "/users/login"
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'widget_tweaks',
-    'donations',
-    'users',
-    'extra_views',
-    'crispy_forms',
-    'profiles',
-    'storages',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "widget_tweaks",
+    "donations",
+    "users",
+    "extra_views",
+    "crispy_forms",
+    "profiles",
+    "storages",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'ngo.urls'
+ROOT_URLCONF = "ngo.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [TEMPLATE_DIR],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'ngo.wsgi.application'
+WSGI_APPLICATION = "ngo.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-DATABASES = {
-    'default':{
-        'ENGINE': 'mysql.connector.django',
-        'OPTIONS': {
-            'database': getenv('DB_NAME'),
-            'user': getenv('DB_USER'),
-            'password': getenv('DB_PASSWORD'),
-            'host': getenv('DB_HOST'),
-            'port': getenv('DB_PORT'),
-            'raise_on_warnings': True
-        }
-    }
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     'default':{
+#         'ENGINE': 'mysql.connector.django',
+#         'OPTIONS': {
+#             'database': getenv('DB_NAME'),
+#             'user': getenv('DB_USER'),
+#             'password': getenv('DB_PASSWORD'),
+#             'host': getenv('DB_HOST'),
+#             'port': getenv('DB_PORT'),
+#             'raise_on_warnings': True
+#         }
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -153,27 +154,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 # STATIC_URL = 'https://ngo-donations.s3.us-east-2.amazonaws.com/'
 
-USE_S3 = getenv('USE_S3') == 'TRUE'
+USE_S3 = getenv("USE_S3") == "TRUE"
 if USE_S3:
-    STATIC_URL = f'https://ngo-donations.s3.us-east-2.amazonaws.com/static/'
+    STATIC_URL = f"https://ngo-donations.s3.us-east-2.amazonaws.com/static/"
 else:
-    STATIC_URL = '/static/'
+    STATIC_URL = "/static/"
 
 
 STATICFILES_DIRS = [
-    path.join(BASE_DIR, 'static'),
+    path.join(BASE_DIR, "static"),
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = False
 
-AUTH_USER_MODEL = 'users.CustomUser'  #
+AUTH_USER_MODEL = "users.CustomUser"  #
 
-AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']  # add this to enable email login
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+AUTHENTICATION_BACKENDS = [
+    "users.backends.EmailBackend"
+]  # add this to enable email login
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"

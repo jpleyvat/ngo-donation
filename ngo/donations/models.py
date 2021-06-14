@@ -1,4 +1,4 @@
-'''Donations models.'''
+"""Donations models."""
 from time import time
 
 # Django.
@@ -7,20 +7,27 @@ from django.utils.translation import ugettext_lazy as _
 
 # Models.
 from users.models import Profile
+
 # Create your models here.
+
+
 def get_id():
-    '''Returns unique ID.'''
+    """Returns unique ID."""
     return int(time())
 
+
 class Charity(models.Model):
-    '''Donation types models.'''
-    charity_id = models.IntegerField(primary_key=True, auto_created=True, editable=False)
+    """Donation types models."""
+
+    charity_id = models.IntegerField(
+        primary_key=True, auto_created=True, editable=False
+    )
     name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
-    donations = models.ManyToManyField('Donation', related_name='+', blank=True)
+    donations = models.ManyToManyField("Donation", related_name="+", blank=True)
 
     def save(self, *args, **kwargs):
-        '''Sets unique ID'''
+        """Sets unique ID"""
         if not self.charity_id:
             self.charity_id = get_id()
 
@@ -37,24 +44,33 @@ class Charity(models.Model):
         return str(self.name)
 
     class Meta:
-        '''Meta class.'''
-        ordering = ['name']
-        verbose_name = _('charity')
-        verbose_name_plural = _('charities')
+        """Meta class."""
+
+        ordering = ["name"]
+        verbose_name = _("charity")
+        verbose_name_plural = _("charities")
 
 
 class Donation(models.Model):
-    '''Donations models.'''
-    donation_id = models.IntegerField(primary_key=True, editable=False, default=0)
+    """Donations models."""
+
+    donation_id = models.IntegerField(
+        primary_key=True, editable=False, default=0
+    )
     charity = models.ForeignKey(Charity, on_delete=models.DO_NOTHING)
     date = models.DateField(auto_created=True, auto_now=True)
     amount = models.IntegerField(blank=False, null=False)
-    completed = models.BooleanField(default=False,auto_created=True, editable=False)
-    profile = models.ForeignKey(Profile, on_delete=models.DO_NOTHING, )
+    completed = models.BooleanField(
+        default=False, auto_created=True, editable=False
+    )
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.DO_NOTHING,
+    )
     # gifts = models.ForeignKey()
 
     def save(self, *args, **kwargs):
-        '''Sets unique ID'''
+        """Sets unique ID"""
         if not self.donation_id:
             self.donation_id = get_id()
 
@@ -64,5 +80,6 @@ class Donation(models.Model):
         return str(self.donation_id)
 
     class Meta:
-        '''Meta class.'''
-        ordering = ['-date']
+        """Meta class."""
+
+        ordering = ["-date"]

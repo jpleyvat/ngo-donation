@@ -6,10 +6,11 @@ from users.models import Profile
 
 
 class ProfileForm(forms.ModelForm):
-    '''Profile form.'''
+    """Profile form."""
 
-    class Meta():
-        '''Meta Class'''
+    class Meta:
+        """Meta Class"""
+
         model = Profile
-        fields = '__all__'
-        exclude = ['bio']
+        fields = "__all__"
+        exclude = ["bio"]

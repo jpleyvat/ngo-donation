@@ -1,4 +1,4 @@
-'''Profile views.'''
+"""Profile views."""
 
 # Django
 from django.shortcuts import render
@@ -11,13 +11,11 @@ from .models import Profile
 
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
-    login_url = 'users:login'
+    login_url = "users:login"
     model = Profile
-    fields = '__all__'
-    template_name = 'profiles/update.html'
-    success_url = reverse_lazy('home')
-
+    fields = "__all__"
+    template_name = "profiles/update.html"
+    success_url = reverse_lazy("home")
 
 
 # Create your views here.
-
