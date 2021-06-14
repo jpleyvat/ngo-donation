@@ -3,6 +3,9 @@ from time import time
 # Django.
 from django.db import models
 
+
+from django.apps import apps
+
 # Create your models here.
 
 
@@ -32,6 +35,16 @@ class Profile(models.Model):
         """Unique ID"""
         if not self.profile_id:
             self.profile_id = get_id()
+
+        users = apps.get_model("users", "CustomUser")
+        if users.objects.filter(profile=self.profile_id).count() > 0:
+            user = users.objects.get(profile=self.profile_id)
+            if self.first_name and self.first_name != "":
+                user.first_name = self.first_name
+            if self.last_name and self.last_name != "":
+                user.last_name = self.last_name
+            user.save()
+
         super().save(*args, **kwargs)
 
     def __str__(self):

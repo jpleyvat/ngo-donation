@@ -78,7 +78,6 @@ class UsersListView(ListView):
     template_name = "UserTemps/users_list_view.html"
 
 
-#
 # @method_decorator(login_required(login_url ='users:delete_user'), name = dispatch)
 # @method_decorator(user_passes_test(profile))
 class delete_user(DeleteView):

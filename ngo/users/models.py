@@ -16,9 +16,7 @@ from profiles.models import Profile
 
 
 class CustomUser(AbstractUser):
-    user_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
+    user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=40, unique=False, default="")
     email = models.EmailField(_("email address"), unique=True)
     is_staff = models.BooleanField(

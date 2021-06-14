@@ -54,15 +54,11 @@ class Charity(models.Model):
 class Donation(models.Model):
     """Donations models."""
 
-    donation_id = models.IntegerField(
-        primary_key=True, editable=False, default=0
-    )
+    donation_id = models.IntegerField(primary_key=True, editable=False, default=0)
     charity = models.ForeignKey(Charity, on_delete=models.DO_NOTHING)
     date = models.DateField(auto_created=True, auto_now=True)
     amount = models.IntegerField(blank=False, null=False)
-    completed = models.BooleanField(
-        default=False, auto_created=True, editable=False
-    )
+    completed = models.BooleanField(default=False, auto_created=True, editable=False)
     profile = models.ForeignKey(
         Profile,
         on_delete=models.DO_NOTHING,

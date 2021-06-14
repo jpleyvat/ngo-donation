@@ -116,9 +116,9 @@ class DonationInline(InlineFormSetFactory):
         define_user_and_profile(self)
 
         if self.profile:
-            donations = Donation.objects.filter(
-                profile=self.profile.profile_id
-            ).filter(completed=False)
+            donations = Donation.objects.filter(profile=self.profile.profile_id).filter(
+                completed=False
+            )
 
             # Modifies kwargs if pending donation.
             if donations:
